@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model FinancialProfile {
+  id          Int            @id @default(autoincrement())
+  name        String
+  grossSalary Float
+  bankNet     Float
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  spendingPlans SpendingPlan[]
+
+  @@map("financial_profiles")
+}
+
+model SpendingPlan {
+  id                Int      @id @default(autoincrement())
+  profileId          Int
+  fixedCosts         Float
+  savingsGoals       Float
+  activeInvestments  Float
+  guiltFreeSpending  Float
+  wealthProjection   Json
+  createdAt          DateTime @default(now())
+
+  profile FinancialProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@map("spending_plans")
+}
