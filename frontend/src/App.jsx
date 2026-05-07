@@ -22,6 +22,8 @@ function App() {
     bankNet: "",
   });
 
+  const appEnv = import.meta.env.VITE_APP_ENV || "Local";
+
   const [plan, setPlan] = useState(null);
   const [profiles, setProfiles] = useState([]);
   const [message, setMessage] = useState("");
@@ -37,12 +39,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-  async function fetchProfilesOnStart() {
-    await loadProfiles();
-  }
+    async function fetchProfilesOnStart() {
+      await loadProfiles();
+    }
 
-  fetchProfilesOnStart();
-}, [loadProfiles]);
+    fetchProfilesOnStart();
+  }, [loadProfiles]);
 
   async function handleCalculate(e) {
     e.preventDefault();
@@ -156,14 +158,24 @@ function App() {
     <div className="min-h-screen bg-slate-100 text-slate-900">
       <header className="bg-slate-950 text-white py-8 px-6">
         <div className="max-w-6xl mx-auto">
-          <p className="text-sm text-slate-300">Introduction to DevOps</p>
-          <h1 className="text-4xl font-bold mt-2">
-            The Intelligent Investor Platform
-          </h1>
-          <p className="text-slate-300 mt-3 max-w-2xl">
-            A full-stack personal finance platform for calculating monthly
-            spending buckets and visualizing long-term investment growth.
-          </p>
+          <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <div>
+              <p className="text-sm text-slate-300">Introduction to DevOps</p>
+
+              <h1 className="text-4xl font-bold mt-2">
+                The Intelligent Investor Platform
+              </h1>
+
+              <p className="text-slate-300 mt-3 max-w-2xl">
+                A full-stack personal finance platform for calculating monthly
+                spending buckets and visualizing long-term investment growth.
+              </p>
+            </div>
+
+            <div className="inline-flex w-fit items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-800">
+              Environment: {appEnv}
+            </div>
+          </div>
         </div>
       </header>
 
@@ -258,10 +270,12 @@ function App() {
                         {bucket.subtitle}
                       </p>
                     </div>
+
                     <span className="bg-blue-100 text-blue-800 rounded-full px-3 py-1 text-sm font-semibold">
                       {bucket.percent}
                     </span>
                   </div>
+
                   <p className="text-3xl font-bold mt-5">
                     ₪{Number(bucket.value).toLocaleString()}
                   </p>
@@ -300,7 +314,15 @@ function App() {
           <h2 className="text-2xl font-semibold mb-4">Saved Profiles</h2>
 
           {profiles.length === 0 ? (
-            <p className="text-slate-600">No saved profiles yet.</p>
+            <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-5">
+              <p className="font-medium text-slate-800">
+                No saved profiles yet.
+              </p>
+              <p className="mt-1 text-sm text-slate-600">
+                Create your first financial profile by entering salary details
+                and clicking Save Profile.
+              </p>
+            </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {profiles.map((profile) => (

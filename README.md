@@ -4,7 +4,7 @@
 
 A full-stack personal finance platform that helps users calculate a monthly spending plan, save financial profiles, and visualize long-term investment growth.
 
-The project was developed as part of an **Introduction to DevOps** course and demonstrates a complete full-stack system using React, Node.js, Express, PostgreSQL, Prisma ORM, Docker, Docker Compose, automated tests, Cypress E2E testing, staging environment, and GitHub Actions CI/CD.
+The project was developed as part of an **Introduction to DevOps** course and demonstrates a complete full-stack system using React, Node.js, Express, PostgreSQL, Prisma ORM, Docker, Docker Compose, automated tests, Cypress E2E testing, staging environment, environment badge, and GitHub Actions CI/CD.
 
 ---
 
@@ -36,6 +36,7 @@ Users can also save financial profiles to the database and load them later.
 - 🧪 Local development environment
 - 🚦 Separate staging environment
 - 🗄️ Separate staging database
+- 🏷️ Environment badge displayed in the frontend
 - 🔄 Automatic Prisma migrations on container startup
 - 📊 15-year investment projection chart
 - 💾 Save and load financial profiles
@@ -119,6 +120,7 @@ The CI pipeline runs automatically on every push to `main` and verifies the proj
 | 🐳 Docker | Run services in containers |
 | 🧩 Docker Compose | Run frontend, backend, and database together |
 | 🚦 Staging Environment | Test the full system before production |
+| 🏷️ Environment Badge | Shows whether the frontend is running in Local or Staging mode |
 | 🔁 GitHub Actions | Run automated CI pipeline |
 | 🌿 Git | Version control |
 | ☁️ GitHub | Remote repository |
@@ -245,7 +247,7 @@ This section explains the main files in the project and their roles in a simple 
 | 🎨 | `frontend/tailwind.config.js` | Tailwind CSS configuration file. |
 | 🧩 | `frontend/postcss.config.js` | PostCSS configuration used by Tailwind CSS. |
 | 🚪 | `frontend/src/main.jsx` | Entry point of the React app. It renders `App.jsx`. |
-| 🖼️ | `frontend/src/App.jsx` | Main frontend component. Displays the form, results, chart, and saved profiles. |
+| 🖼️ | `frontend/src/App.jsx` | Main frontend component. Displays the form, results, chart, saved profiles, and environment badge. |
 | 🧪 | `frontend/src/App.test.jsx` | Frontend component test that verifies calculation results appear in the UI. |
 | 🔌 | `frontend/src/api/profilesApi.js` | Handles HTTP requests from the frontend to the backend API. Uses environment-based API URL. |
 | 💅 | `frontend/src/index.css` | Main CSS file that loads Tailwind CSS. |
@@ -253,7 +255,7 @@ This section explains the main files in the project and their roles in a simple 
 | 🖼️ | `frontend/src/assets/` | Stores static assets such as images, logos, and icons. |
 | 🌐 | `frontend/cypress/e2e/financial-profile.cy.js` | Cypress E2E and edge case tests that simulate real user flows in the browser. |
 | ⚙️ | `frontend/cypress.config.js` | Cypress configuration file. |
-| 🐳 | `frontend/Dockerfile` | Instructions for building the frontend Docker image and serving it with Nginx. Supports `VITE_API_BASE_URL`. |
+| 🐳 | `frontend/Dockerfile` | Instructions for building the frontend Docker image and serving it with Nginx. Supports `VITE_API_BASE_URL` and `VITE_APP_ENV`. |
 | 🚫 | `frontend/.dockerignore` | Tells Docker which frontend files should not be copied into the image. |
 
 ---
@@ -692,6 +694,59 @@ It allows testing:
 
 ---
 
+## 🏷️ Environment Badge
+
+The frontend displays an environment badge in the top header.
+
+The badge helps identify which environment is currently running.
+
+Examples:
+
+```txt
+Environment: Local
+Environment: Staging
+```
+
+The value is controlled by the frontend build variable:
+
+```txt
+VITE_APP_ENV
+```
+
+In the regular Docker environment, the value is:
+
+```txt
+Local
+```
+
+In the staging Docker environment, the value is:
+
+```txt
+Staging
+```
+
+The value is passed during the Docker build process using build arguments in the Docker Compose files.
+
+Regular environment:
+
+```yaml
+args:
+  VITE_API_BASE_URL: http://localhost:5050
+  VITE_APP_ENV: Local
+```
+
+Staging environment:
+
+```yaml
+args:
+  VITE_API_BASE_URL: http://localhost:5051
+  VITE_APP_ENV: Staging
+```
+
+This is useful in DevOps because it makes the difference between local, staging, and production environments clear and visible in the user interface.
+
+---
+
 ## 🐳 Docker Explanation
 
 ### Container
@@ -741,6 +796,13 @@ backend/Dockerfile
 frontend/Dockerfile
 ```
 
+The frontend Dockerfile supports environment variables during build time:
+
+```txt
+VITE_API_BASE_URL
+VITE_APP_ENV
+```
+
 ---
 
 ### Docker Compose
@@ -758,6 +820,20 @@ Staging environment:
 ```txt
 docker-compose.staging.yml
 ```
+
+The regular environment builds the frontend with:
+
+```txt
+VITE_APP_ENV=Local
+```
+
+The staging environment builds the frontend with:
+
+```txt
+VITE_APP_ENV=Staging
+```
+
+This allows the frontend to display the correct environment badge.
 
 ---
 
@@ -1098,6 +1174,7 @@ Implemented:
 - ✅ Staging Docker environment
 - ✅ Separate staging database
 - ✅ Separate staging frontend and backend ports
+- ✅ Environment badge in frontend
 - ✅ Automatic Prisma migrations on container startup
 - ✅ Docker build check in CI
 - ✅ Backend unit tests
@@ -1117,7 +1194,6 @@ Implemented:
 
 Planned next steps:
 
-- ⏳ Improve UI and documentation
 - ⏳ Add production deployment
 
 ---
