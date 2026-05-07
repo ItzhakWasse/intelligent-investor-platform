@@ -45,6 +45,40 @@ Users can also save financial profiles to the database and load them later.
 
 ---
 
+## 🖼️ Project Screenshots
+
+### 🎨 Frontend Application
+
+The main React interface allows users to enter financial details, calculate a monthly spending plan, view investment projection, and save financial profiles.
+
+![Frontend Application](docs/screenshots/frontend-home.png)
+
+---
+
+### ❤️ Backend Health Check
+
+The backend exposes a `/health` endpoint that confirms the Express server is running and the PostgreSQL database is connected.
+
+![Backend Health Check](docs/screenshots/backend-health.png)
+
+---
+
+### 🐳 Docker Compose
+
+The full application is containerized using Docker Compose, including PostgreSQL, backend, and frontend services.
+
+![Docker Compose](docs/screenshots/docker-compose.png)
+
+---
+
+### 🔁 GitHub Actions CI Pipeline
+
+The CI pipeline runs automatically on every push to `main` and verifies the project by running backend tests, frontend tests, Cypress E2E tests, and Docker build checks.
+
+![GitHub Actions](docs/screenshots/github-actions.png)
+
+---
+
 ## 🧰 Technologies Used
 
 ### 🎨 Frontend
@@ -93,6 +127,13 @@ intelligent-investor-platform/
 ├── .github/
 │   └── workflows/
 │       └── ci.yml
+│
+├── docs/
+│   └── screenshots/
+│       ├── frontend-home.png
+│       ├── backend-health.png
+│       ├── docker-compose.png
+│       └── github-actions.png
 │
 ├── backend/
 │   ├── prisma/
@@ -217,6 +258,7 @@ This section explains the main files in the project and their roles in a simple 
 | Icon | File / Folder | Role |
 |---|---|---|
 | 🔁 | `.github/workflows/ci.yml` | GitHub Actions workflow that runs the automated CI pipeline. |
+| 🖼️ | `docs/screenshots/` | Stores project screenshots used in the README documentation. |
 | 🐳 | `docker-compose.yml` | Runs the full system: PostgreSQL, backend, and frontend. |
 | 🧪 | `.env.example` | Example environment file that shows which variables are required. Safe to upload to GitHub. |
 | 🚫 | `.gitignore` | Defines files and folders that should not be uploaded to GitHub, such as `node_modules` and `.env`. |
@@ -765,6 +807,7 @@ The CI pipeline performs the following steps:
 | 🟩 Setup Node.js | Installs the required Node.js version. |
 | 📦 Install Backend Dependencies | Installs backend packages using `npm ci`. |
 | 📦 Install Frontend Dependencies | Installs frontend packages using `npm ci`. |
+| 🐳 Docker Build Check | Builds the Docker images for the backend and frontend. |
 | 🐳 Start Docker Services | Starts PostgreSQL, backend, and frontend containers using Docker Compose. |
 | ❤️ Health Check | Waits until the backend `/health` endpoint is available. |
 | 🔺 Prisma Generate | Generates the Prisma Client. |
@@ -899,6 +942,7 @@ Implemented:
 - ✅ Prisma ORM
 - ✅ Docker Compose
 - ✅ Full-stack Docker setup
+- ✅ Docker build check in CI
 - ✅ Backend unit tests
 - ✅ Backend integration tests
 - ✅ Frontend component test
@@ -906,6 +950,7 @@ Implemented:
 - ✅ GitHub Actions CI Pipeline
 - ✅ Automated CI on every push to `main`
 - ✅ CI status badge in README
+- ✅ Project screenshots in README
 - ✅ Profile saving
 - ✅ Profile loading
 - ✅ Investment projection chart
@@ -919,3 +964,9 @@ Planned next steps:
 - ⏳ Add more E2E tests for edge cases
 
 ---
+
+## 👤 Author
+
+**Yehuda Baza**  
+Software Engineering Student  
+SCE – Shamoon College of Engineering
