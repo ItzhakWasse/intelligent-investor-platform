@@ -1,0 +1,65 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    name: Build and Test Full Stack App
+    runs-on: ubuntu-latest
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5433/intelligent_investor_db?schema=public
+      PORT: 5050
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm ci
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Start Docker services
+        run: docker compose up --build -d
+
+      - name: Wait for backend health check
+        run: npx wait-on http://localhost:5050/health
+
+      - name: Generate Prisma Client
+        working-directory: backend
+        run: npx prisma generate
+
+      - name: Run database migrations
+        working-directory: backend
+        run: npx prisma migrate deploy
+
+      - name: Run backend tests
+        working-directory: backend
+        run: npm test
+
+      - name: Run frontend component tests
+        working-directory: frontend
+        run: npm test
+
+      - name: Run Cypress E2E tests
+        working-directory: frontend
+        run: npm run cy:run
+
+      - name: Stop Docker services
+        if: always()
+        run: docker compose down
