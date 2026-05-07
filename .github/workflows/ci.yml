@@ -34,8 +34,11 @@ jobs:
         working-directory: frontend
         run: npm ci
 
+      - name: Build Docker images
+        run: docker compose build
+
       - name: Start Docker services
-        run: docker compose up --build -d
+        run: docker compose up -d
 
       - name: Wait for backend health check
         run: npx wait-on http://localhost:5050/health
