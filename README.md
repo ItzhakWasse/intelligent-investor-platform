@@ -4,7 +4,7 @@
 
 A full-stack personal finance platform that helps users calculate a monthly spending plan, save financial profiles, and visualize long-term investment growth.
 
-The project was developed as part of an **Introduction to DevOps** course and demonstrates a complete full-stack system using React, Node.js, Express, PostgreSQL, Prisma ORM, Docker, Docker Compose, automated tests, Cypress E2E testing, staging environment, environment badge, and GitHub Actions CI/CD.
+The project was developed as part of an **Introduction to DevOps** course and demonstrates a complete full-stack system using React, Node.js, Express, PostgreSQL, Prisma ORM, Docker, Docker Compose, automated tests, Cypress E2E testing, local/staging/production environments, environment badge, and GitHub Actions CI/CD.
 
 ---
 
@@ -35,7 +35,8 @@ Users can also save financial profiles to the database and load them later.
 - 🐳 Full Docker Compose setup
 - 🧪 Local development environment
 - 🚦 Separate staging environment
-- 🗄️ Separate staging database
+- 🚀 Separate production environment
+- 🗄️ Separate databases for local, staging, and production
 - 🏷️ Environment badge displayed in the frontend
 - 🔄 Automatic Prisma migrations on container startup
 - 📊 15-year investment projection chart
@@ -119,8 +120,10 @@ The CI pipeline runs automatically on every push to `main` and verifies the proj
 |---|---|
 | 🐳 Docker | Run services in containers |
 | 🧩 Docker Compose | Run frontend, backend, and database together |
+| 🧪 Local Environment | Run and test the project during development |
 | 🚦 Staging Environment | Test the full system before production |
-| 🏷️ Environment Badge | Shows whether the frontend is running in Local or Staging mode |
+| 🚀 Production Environment | Run the production-like version of the full system |
+| 🏷️ Environment Badge | Shows whether the frontend is running in Local, Staging, or Production mode |
 | 🔁 GitHub Actions | Run automated CI pipeline |
 | 🌿 Git | Version control |
 | ☁️ GitHub | Remote repository |
@@ -202,6 +205,7 @@ intelligent-investor-platform/
 │
 ├── docker-compose.yml
 ├── docker-compose.staging.yml
+├── docker-compose.prod.yml
 ├── .env.example
 ├── .gitignore
 └── README.md
@@ -266,8 +270,9 @@ This section explains the main files in the project and their roles in a simple 
 |---|---|---|
 | 🔁 | `.github/workflows/ci.yml` | GitHub Actions workflow that runs the automated CI pipeline. |
 | 🖼️ | `docs/screenshots/` | Stores project screenshots used in the README documentation. |
-| 🐳 | `docker-compose.yml` | Runs the regular full-stack environment: PostgreSQL, backend, and frontend. |
+| 🐳 | `docker-compose.yml` | Runs the regular local full-stack environment: PostgreSQL, backend, and frontend. |
 | 🚦 | `docker-compose.staging.yml` | Runs a separate staging environment with its own frontend, backend, database, ports, and volume. |
+| 🚀 | `docker-compose.prod.yml` | Runs a separate production-like environment with its own frontend, backend, database, ports, and volume. |
 | 🧪 | `.env.example` | Example environment file that shows which variables are required. Safe to upload to GitHub. |
 | 🚫 | `.gitignore` | Defines files and folders that should not be uploaded to GitHub, such as `node_modules` and `.env`. |
 | 📘 | `README.md` | Main project documentation file. |
@@ -660,37 +665,118 @@ docker compose -f docker-compose.staging.yml down
 
 ---
 
-### 🔄 Automatic Database Migrations
+## 🚀 Running the Production Environment
 
-The staging backend container runs Prisma migrations automatically when it starts:
+The project includes a separate production-like Docker environment.
+
+The production environment is used to run the project in a cleaner and more isolated setup.  
+It uses separate containers, separate ports, and a separate PostgreSQL database.
+
+---
+
+### 🧩 Production Services
+
+| Service | URL / Port | Description |
+|---|---|---|
+| 🎨 Frontend Production | `http://localhost:8090` | Runs the React frontend through Docker and Nginx. |
+| 🚀 Backend Production | `http://localhost:5052` | Runs the Express backend. |
+| ❤️ Backend Health Check | `http://localhost:5052/health` | Checks if the backend and database are connected. |
+| 🐘 PostgreSQL Production | `localhost:5435` | Separate PostgreSQL database for production. |
+
+---
+
+### ▶️ Start Production
+
+From the root project folder, run:
+
+```bash
+docker compose -f docker-compose.prod.yml up --build -d
+```
+
+This command builds and starts:
+
+- 🐘 Production PostgreSQL database
+- 🚀 Production backend
+- 🎨 Production frontend
+
+---
+
+### ❤️ Check Production Health
+
+Open:
+
+```txt
+http://localhost:5052/health
+```
+
+Expected response:
+
+```json
+{
+  "status": "OK",
+  "service": "Intelligent Investor Backend",
+  "database": "Connected"
+}
+```
+
+---
+
+### 🎨 Open Production Frontend
+
+Open:
+
+```txt
+http://localhost:8090
+```
+
+The frontend should display:
+
+```txt
+Environment: Production
+```
+
+If the production database is empty, the frontend will show:
+
+```txt
+No saved profiles yet.
+```
+
+This is normal because the production database is separate from the local and staging databases.
+
+---
+
+### 🛑 Stop Production
+
+To stop the production environment, run:
+
+```bash
+docker compose -f docker-compose.prod.yml down
+```
+
+---
+
+## 🔄 Automatic Database Migrations
+
+The backend container runs Prisma migrations automatically when it starts:
 
 ```bash
 npx prisma migrate deploy && node src/server.js
 ```
 
-This means that if the staging database is new or empty, Prisma automatically creates the required tables before the backend server starts.
+This is configured in the Docker Compose files.
 
-The staging database includes:
+It means that if a database is new or empty, Prisma automatically creates the required tables before the backend server starts.
+
+The database includes:
 
 - `financial_profiles`
 - `spending_plans`
 
----
+This behavior is used in:
 
-### 🧠 Why Staging Is Useful
-
-The staging environment helps verify that the full system works before production.
-
-It allows testing:
-
-- Docker build
-- Frontend container
-- Backend container
-- PostgreSQL connection
-- Prisma migrations
-- API communication
-- Health check endpoint
-- Full-stack behavior
+- Local Docker environment
+- Staging Docker environment
+- Production Docker environment
 
 ---
 
@@ -705,6 +791,7 @@ Examples:
 ```txt
 Environment: Local
 Environment: Staging
+Environment: Production
 ```
 
 The value is controlled by the frontend build variable:
@@ -713,21 +800,9 @@ The value is controlled by the frontend build variable:
 VITE_APP_ENV
 ```
 
-In the regular Docker environment, the value is:
-
-```txt
-Local
-```
-
-In the staging Docker environment, the value is:
-
-```txt
-Staging
-```
-
 The value is passed during the Docker build process using build arguments in the Docker Compose files.
 
-Regular environment:
+Regular local environment:
 
 ```yaml
 args:
@@ -743,7 +818,31 @@ args:
   VITE_APP_ENV: Staging
 ```
 
+Production environment:
+
+```yaml
+args:
+  VITE_API_BASE_URL: http://localhost:5052
+  VITE_APP_ENV: Production
+```
+
 This is useful in DevOps because it makes the difference between local, staging, and production environments clear and visible in the user interface.
+
+---
+
+## 🧠 Why Multiple Environments Are Useful
+
+Using multiple environments is an important DevOps practice.
+
+This project includes three environments:
+
+| Environment | Frontend | Backend | Database | Purpose |
+|---|---|---|---|---|
+| Local | `http://localhost:5173` | `http://localhost:5050` | `localhost:5433` | Development and regular testing |
+| Staging | `http://localhost:8080` | `http://localhost:5051` | `localhost:5434` | Testing before production |
+| Production | `http://localhost:8090` | `http://localhost:5052` | `localhost:5435` | Production-like isolated run |
+
+This separation helps test the system safely without mixing data between environments.
 
 ---
 
@@ -761,13 +860,21 @@ In the regular local environment:
 | `intelligent_investor_backend` | Runs the Node.js Express backend |
 | `intelligent_investor_postgres` | Runs the PostgreSQL database |
 
-The project also includes a separate staging environment:
+In the staging environment:
 
 | Staging Container | Purpose |
 |---|---|
 | `intelligent_investor_staging_frontend` | Runs the staging React frontend with Nginx |
 | `intelligent_investor_staging_backend` | Runs the staging Node.js Express backend |
 | `intelligent_investor_staging_postgres` | Runs the staging PostgreSQL database |
+
+In the production environment:
+
+| Production Container | Purpose |
+|---|---|
+| `intelligent_investor_prod_frontend` | Runs the production React frontend with Nginx |
+| `intelligent_investor_prod_backend` | Runs the production Node.js Express backend |
+| `intelligent_investor_prod_postgres` | Runs the production PostgreSQL database |
 
 ---
 
@@ -809,7 +916,7 @@ VITE_APP_ENV
 
 Docker Compose runs services together using configuration files.
 
-Regular environment:
+Regular local environment:
 
 ```txt
 docker-compose.yml
@@ -819,6 +926,12 @@ Staging environment:
 
 ```txt
 docker-compose.staging.yml
+```
+
+Production environment:
+
+```txt
+docker-compose.prod.yml
 ```
 
 The regular environment builds the frontend with:
@@ -833,6 +946,12 @@ The staging environment builds the frontend with:
 VITE_APP_ENV=Staging
 ```
 
+The production environment builds the frontend with:
+
+```txt
+VITE_APP_ENV=Production
+```
+
 This allows the frontend to display the correct environment badge.
 
 ---
@@ -843,7 +962,7 @@ A volume stores database data permanently.
 
 In this project, PostgreSQL volumes keep database data even if containers are stopped.
 
-The staging environment has its own separate volume, so staging data does not mix with the regular local database.
+Each environment has its own separate volume, so data does not mix between local, staging, and production.
 
 ---
 
@@ -1124,7 +1243,7 @@ npm run cy:run
 
 ---
 
-### 🐳 Docker
+### 🐳 Docker Local
 
 ```bash
 docker compose up --build -d
@@ -1145,6 +1264,18 @@ docker compose -f docker-compose.staging.yml down
 docker compose -f docker-compose.staging.yml logs backend
 docker compose -f docker-compose.staging.yml logs frontend
 docker compose -f docker-compose.staging.yml logs postgres
+```
+
+---
+
+### 🚀 Docker Production
+
+```bash
+docker compose -f docker-compose.prod.yml up --build -d
+docker compose -f docker-compose.prod.yml down
+docker compose -f docker-compose.prod.yml logs backend
+docker compose -f docker-compose.prod.yml logs frontend
+docker compose -f docker-compose.prod.yml logs postgres
 ```
 
 ---
@@ -1172,9 +1303,13 @@ Implemented:
 - ✅ Full-stack Docker setup
 - ✅ Local Docker environment
 - ✅ Staging Docker environment
+- ✅ Production Docker environment
+- ✅ Separate local database
 - ✅ Separate staging database
-- ✅ Separate staging frontend and backend ports
+- ✅ Separate production database
+- ✅ Separate frontend and backend ports for each environment
 - ✅ Environment badge in frontend
+- ✅ Environment badge supports Local, Staging, and Production
 - ✅ Automatic Prisma migrations on container startup
 - ✅ Docker build check in CI
 - ✅ Backend unit tests
@@ -1192,9 +1327,12 @@ Implemented:
 - ✅ Investment projection chart
 - ✅ Health check endpoint
 
-Planned next steps:
+Optional next steps:
 
-- ⏳ Add production deployment
+- ⏳ Deploy to a real cloud/server provider
+- ⏳ Add HTTPS and custom domain
+- ⏳ Add monitoring and logs dashboard
+- ⏳ Add user authentication
 
 ---
 
