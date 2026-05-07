@@ -39,6 +39,7 @@ Users can also save financial profiles to the database and load them later.
 - ✅ Backend integration tests
 - 🧪 Frontend component test
 - 🌐 Cypress E2E test
+- ⚠️ Cypress edge case tests
 - 🔁 GitHub Actions CI pipeline
 - ❤️ Health check endpoint
 - 🌐 Full-stack communication between frontend, backend, and database
@@ -204,8 +205,6 @@ intelligent-investor-platform/
 
 This section explains the main files in the project and their roles in a simple and organized way.
 
----
-
 ### 🖥️ Backend Files
 
 | Icon | File / Folder | Role |
@@ -246,7 +245,7 @@ This section explains the main files in the project and their roles in a simple 
 | 💅 | `frontend/src/index.css` | Main CSS file that loads Tailwind CSS. |
 | 🧾 | `frontend/src/App.css` | Additional CSS file for frontend styling. |
 | 🖼️ | `frontend/src/assets/` | Stores static assets such as images, logos, and icons. |
-| 🌐 | `frontend/cypress/e2e/financial-profile.cy.js` | Cypress E2E test that simulates a real user flow in the browser. |
+| 🌐 | `frontend/cypress/e2e/financial-profile.cy.js` | Cypress E2E and edge case tests that simulate real user flows in the browser. |
 | ⚙️ | `frontend/cypress.config.js` | Cypress configuration file. |
 | 🐳 | `frontend/Dockerfile` | Instructions for building the frontend Docker image and serving it with Nginx. |
 | 🚫 | `frontend/.dockerignore` | Tells Docker which frontend files should not be copied into the image. |
@@ -292,8 +291,6 @@ The investment projection is calculated for 15 years.
 ## 🗄️ Database Structure
 
 The database contains two main tables.
-
----
 
 ### `financial_profiles`
 
@@ -366,28 +363,6 @@ Example request:
 }
 ```
 
-Example response:
-
-```json
-{
-  "message": "Spending plan calculated successfully",
-  "data": {
-    "grossSalary": 15000,
-    "bankNet": 10000,
-    "fixedCosts": 5500,
-    "savingsGoals": 1000,
-    "activeInvestments": 1000,
-    "guiltFreeSpending": 2750,
-    "wealthProjection": [
-      {
-        "year": 1,
-        "value": 1070
-      }
-    ]
-  }
-}
-```
-
 ---
 
 ### 💾 Create Financial Profile
@@ -434,8 +409,6 @@ Returns a specific financial profile by ID.
 
 This section explains what needs to be installed and where.
 
----
-
 ### ✅ Prerequisites
 
 Before running the project, install:
@@ -467,24 +440,6 @@ The main backend packages used in this project are:
 npm install express cors dotenv @prisma/client
 npm install -D nodemon jest supertest prisma
 ```
-
-Backend dependencies:
-
-| Package | Purpose |
-|---|---|
-| `express` | Build the REST API |
-| `cors` | Allow frontend to communicate with backend |
-| `dotenv` | Load environment variables |
-| `@prisma/client` | Prisma database client |
-
-Backend development dependencies:
-
-| Package | Purpose |
-|---|---|
-| `nodemon` | Restart server automatically during development |
-| `jest` | Run backend tests |
-| `supertest` | Test API endpoints |
-| `prisma` | Prisma CLI for migrations and Prisma Studio |
 
 Generate Prisma Client:
 
@@ -534,29 +489,6 @@ npm install -D tailwindcss@3.4.17 postcss autoprefixer
 npm install -D vitest @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom
 npm install -D cypress
 ```
-
-Frontend dependencies:
-
-| Package | Purpose |
-|---|---|
-| `react` | Build the user interface |
-| `axios` | Send requests to the backend |
-| `recharts` | Display the investment chart |
-
-Frontend development dependencies:
-
-| Package | Purpose |
-|---|---|
-| `vite` | Run and build the frontend |
-| `tailwindcss` | Styling |
-| `postcss` | CSS processing |
-| `autoprefixer` | CSS compatibility |
-| `vitest` | Run frontend component tests |
-| `@testing-library/react` | Test React components |
-| `@testing-library/jest-dom` | Add useful DOM matchers for tests |
-| `@testing-library/user-event` | Simulate user typing and clicking |
-| `jsdom` | Provide a browser-like testing environment |
-| `cypress` | Run end-to-end browser tests |
 
 Run frontend in development mode:
 
@@ -613,16 +545,6 @@ Check backend health:
 
 ```txt
 http://localhost:5050/health
-```
-
-Expected response:
-
-```json
-{
-  "status": "OK",
-  "service": "Intelligent Investor Backend",
-  "database": "Connected"
-}
 ```
 
 Stop all containers:
@@ -764,26 +686,101 @@ cd frontend
 npm run cy:run
 ```
 
-The Cypress E2E test simulates a real user flow:
-
-```txt
-1. Open the website
-2. Enter name, gross salary, and bank net
-3. Click Calculate Plan
-4. Verify the calculated results
-5. Click Save Profile
-6. Verify the saved profile appears on the page
-```
-
 Expected result:
 
 ```txt
-All specs passed!
+Tests: 5
+Passing: 5
+Failing: 0
 ```
 
 To open Cypress in interactive mode:
 
 ```bash
+npm run cy:open
+```
+
+---
+
+## 🧪 Test Coverage
+
+This project includes several layers of automated testing to verify the backend logic, API routes, frontend behavior, and full user flow.
+
+The tests help ensure that new changes do not break the main functionality of the system.
+
+---
+
+### ✅ Test Coverage Summary
+
+| Test Area | Tool | Location | What It Checks |
+|---|---|---|---|
+| Backend Unit Tests | Jest | `backend/src/tests/calculationService.test.js` | Verifies the financial calculation logic. |
+| Backend Integration Tests | Jest + Supertest | `backend/src/tests/profileRoutes.test.js` | Verifies backend API routes, validation, and responses. |
+| Frontend Component Test | Vitest + React Testing Library | `frontend/src/App.test.jsx` | Verifies that the React UI updates after user actions. |
+| Cypress E2E Test | Cypress | `frontend/cypress/e2e/financial-profile.cy.js` | Simulates a real user flow in the browser. |
+| Cypress Edge Case Tests | Cypress | `frontend/cypress/e2e/financial-profile.cy.js` | Verifies input validation and special user scenarios. |
+
+---
+
+### 🌐 Cypress E2E Tests
+
+The Cypress tests simulate real user behavior inside the browser.
+
+The main E2E test checks the full flow of the application:
+
+```txt
+1. Open the frontend application
+2. Enter financial profile details
+3. Click Calculate Plan
+4. Verify that the spending buckets are displayed
+5. Verify that the investment projection chart appears
+6. Save the financial profile
+7. Verify that the saved profile appears in the Saved Profiles section
+```
+
+---
+
+### ⚠️ Cypress Edge Case Tests
+
+In addition to the main happy-path test, the project also includes edge case tests.
+
+These tests check how the system behaves when the user enters missing or incomplete data.
+
+The edge case tests include:
+
+| Edge Case | Expected Behavior |
+|---|---|
+| Application loads successfully | The main title, form, and buttons are visible. |
+| Missing gross salary | The system displays a validation error. |
+| Missing bank net | The system calculates the plan using estimated bank net from gross salary. |
+| Missing name while saving | The system displays a validation error. |
+| Valid profile submission | The profile is calculated, saved, and displayed correctly. |
+
+These tests improve confidence that the application handles both normal and incorrect user actions correctly.
+
+---
+
+### ▶️ Running Cypress Tests
+
+To run Cypress tests in headless mode:
+
+```bash
+cd frontend
+npm run cy:run
+```
+
+Expected result:
+
+```txt
+Tests: 5
+Passing: 5
+Failing: 0
+```
+
+To open Cypress in interactive mode:
+
+```bash
+cd frontend
 npm run cy:open
 ```
 
@@ -795,11 +792,7 @@ This project includes a GitHub Actions CI pipeline that runs automatically on ev
 
 The pipeline helps ensure that the project remains stable and that new changes do not break the system.
 
----
-
 ### ✅ What the CI Pipeline Does
-
-The CI pipeline performs the following steps:
 
 | Step | Description |
 |---|---|
@@ -833,14 +826,12 @@ This file controls the automated CI process.
 
 ### 🧪 Tests Covered by CI
 
-The CI pipeline runs several types of tests:
-
 | Test Type | Tool | Purpose |
 |---|---|---|
 | Backend Unit Tests | Jest | Tests the financial calculation logic. |
 | Backend Integration Tests | Jest + Supertest | Tests backend API routes. |
 | Frontend Component Test | Vitest + React Testing Library | Tests the React UI behavior. |
-| E2E Test | Cypress | Simulates a real user flow in the browser. |
+| E2E and Edge Case Tests | Cypress | Simulates real user flows and validates edge cases in the browser. |
 
 ---
 
@@ -947,6 +938,8 @@ Implemented:
 - ✅ Backend integration tests
 - ✅ Frontend component test
 - ✅ Cypress E2E test
+- ✅ Cypress edge case tests
+- ✅ Test coverage documentation
 - ✅ GitHub Actions CI Pipeline
 - ✅ Automated CI on every push to `main`
 - ✅ CI status badge in README
@@ -961,7 +954,6 @@ Planned next steps:
 - ⏳ Add staging deployment
 - ⏳ Improve UI and documentation
 - ⏳ Add production deployment
-- ⏳ Add more E2E tests for edge cases
 
 ---
 
