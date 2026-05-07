@@ -965,8 +965,3 @@ Planned next steps:
 
 ---
 
-## 👤 Author
-
-**Yehuda Baza**  
-Software Engineering Student  
-SCE – Shamoon College of Engineering
