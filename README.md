@@ -1,8 +1,10 @@
 # 💰 The Intelligent Investor Platform
 
+[![CI Pipeline](https://github.com/yeudaba/intelligent-investor-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/yeudaba/intelligent-investor-platform/actions/workflows/ci.yml)
+
 A full-stack personal finance platform that helps users calculate a monthly spending plan, save financial profiles, and visualize long-term investment growth.
 
-The project was developed as part of an **Introduction to DevOps** course and demonstrates a complete full-stack system using React, Node.js, Express, PostgreSQL, Prisma ORM, Docker, Docker Compose, and automated backend tests.
+The project was developed as part of an **Introduction to DevOps** course and demonstrates a complete full-stack system using React, Node.js, Express, PostgreSQL, Prisma ORM, Docker, Docker Compose, automated tests, Cypress E2E testing, and GitHub Actions CI/CD.
 
 ---
 
@@ -35,6 +37,9 @@ Users can also save financial profiles to the database and load them later.
 - 💾 Save and load financial profiles
 - ✅ Backend unit tests
 - ✅ Backend integration tests
+- 🧪 Frontend component test
+- 🌐 Cypress E2E test
+- 🔁 GitHub Actions CI pipeline
 - ❤️ Health check endpoint
 - 🌐 Full-stack communication between frontend, backend, and database
 
@@ -51,6 +56,9 @@ Users can also save financial profiles to the database and load them later.
 | 🎨 Tailwind CSS | Styling and responsive design |
 | 🔌 Axios | Send HTTP requests to the backend |
 | 📊 Recharts | Display investment projection chart |
+| 🧪 Vitest | Run frontend component tests |
+| 🧩 React Testing Library | Test React UI behavior |
+| 🌐 Cypress | Run end-to-end browser tests |
 
 ### 🖥️ Backend
 
@@ -71,6 +79,7 @@ Users can also save financial profiles to the database and load them later.
 |---|---|
 | 🐳 Docker | Run services in containers |
 | 🧩 Docker Compose | Run frontend, backend, and database together |
+| 🔁 GitHub Actions | Run automated CI pipeline |
 | 🌿 Git | Version control |
 | ☁️ GitHub | Remote repository |
 
@@ -80,6 +89,10 @@ Users can also save financial profiles to the database and load them later.
 
 ```txt
 intelligent-investor-platform/
+│
+├── .github/
+│   └── workflows/
+│       └── ci.yml
 │
 ├── backend/
 │   ├── prisma/
@@ -113,18 +126,24 @@ intelligent-investor-platform/
 │   └── package-lock.json
 │
 ├── frontend/
+│   ├── cypress/
+│   │   └── e2e/
+│   │       └── financial-profile.cy.js
+│   │
 │   ├── src/
 │   │   ├── api/
 │   │   │   └── profilesApi.js
 │   │   │
 │   │   ├── assets/
 │   │   ├── App.jsx
+│   │   ├── App.test.jsx
 │   │   ├── App.css
 │   │   ├── index.css
 │   │   └── main.jsx
 │   │
 │   ├── Dockerfile
 │   ├── .dockerignore
+│   ├── cypress.config.js
 │   ├── index.html
 │   ├── package.json
 │   ├── package-lock.json
@@ -181,10 +200,13 @@ This section explains the main files in the project and their roles in a simple 
 | 🧩 | `frontend/postcss.config.js` | PostCSS configuration used by Tailwind CSS. |
 | 🚪 | `frontend/src/main.jsx` | Entry point of the React app. It renders `App.jsx`. |
 | 🖼️ | `frontend/src/App.jsx` | Main frontend component. Displays the form, results, chart, and saved profiles. |
+| 🧪 | `frontend/src/App.test.jsx` | Frontend component test that verifies calculation results appear in the UI. |
 | 🔌 | `frontend/src/api/profilesApi.js` | Handles HTTP requests from the frontend to the backend API. |
 | 💅 | `frontend/src/index.css` | Main CSS file that loads Tailwind CSS. |
-| 🧾 | `frontend/src/App.css` | Default CSS file from Vite. It is not required if Tailwind is used for styling. |
+| 🧾 | `frontend/src/App.css` | Additional CSS file for frontend styling. |
 | 🖼️ | `frontend/src/assets/` | Stores static assets such as images, logos, and icons. |
+| 🌐 | `frontend/cypress/e2e/financial-profile.cy.js` | Cypress E2E test that simulates a real user flow in the browser. |
+| ⚙️ | `frontend/cypress.config.js` | Cypress configuration file. |
 | 🐳 | `frontend/Dockerfile` | Instructions for building the frontend Docker image and serving it with Nginx. |
 | 🚫 | `frontend/.dockerignore` | Tells Docker which frontend files should not be copied into the image. |
 
@@ -194,6 +216,7 @@ This section explains the main files in the project and their roles in a simple 
 
 | Icon | File / Folder | Role |
 |---|---|---|
+| 🔁 | `.github/workflows/ci.yml` | GitHub Actions workflow that runs the automated CI pipeline. |
 | 🐳 | `docker-compose.yml` | Runs the full system: PostgreSQL, backend, and frontend. |
 | 🧪 | `.env.example` | Example environment file that shows which variables are required. Safe to upload to GitHub. |
 | 🚫 | `.gitignore` | Defines files and folders that should not be uploaded to GitHub, such as `node_modules` and `.env`. |
@@ -466,6 +489,8 @@ The main frontend packages used in this project are:
 ```bash
 npm install axios recharts
 npm install -D tailwindcss@3.4.17 postcss autoprefixer
+npm install -D vitest @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom
+npm install -D cypress
 ```
 
 Frontend dependencies:
@@ -484,6 +509,12 @@ Frontend development dependencies:
 | `tailwindcss` | Styling |
 | `postcss` | CSS processing |
 | `autoprefixer` | CSS compatibility |
+| `vitest` | Run frontend component tests |
+| `@testing-library/react` | Test React components |
+| `@testing-library/jest-dom` | Add useful DOM matchers for tests |
+| `@testing-library/user-event` | Simulate user typing and clicking |
+| `jsdom` | Provide a browser-like testing environment |
+| `cypress` | Run end-to-end browser tests |
 
 Run frontend in development mode:
 
@@ -629,7 +660,7 @@ In this project, the PostgreSQL volume keeps database data even if containers ar
 
 ## 🧪 Running Tests
 
-### Backend Tests
+### 🖥️ Backend Tests
 
 From the `backend` folder:
 
@@ -652,6 +683,134 @@ Expected result:
 ```txt
 Test Suites: 2 passed
 Tests: 18 passed
+```
+
+---
+
+### 🎨 Frontend Component Test
+
+From the `frontend` folder:
+
+```bash
+cd frontend
+npm test
+```
+
+The frontend test checks that the user can enter salary values, click `Calculate Plan`, and see the calculated bucket amounts in the UI.
+
+Expected result:
+
+```txt
+Test Files: 1 passed
+Tests: 1 passed
+```
+
+---
+
+### 🌐 Cypress E2E Test
+
+Make sure the full project is running first:
+
+```bash
+docker compose up --build -d
+```
+
+Then run Cypress from the `frontend` folder:
+
+```bash
+cd frontend
+npm run cy:run
+```
+
+The Cypress E2E test simulates a real user flow:
+
+```txt
+1. Open the website
+2. Enter name, gross salary, and bank net
+3. Click Calculate Plan
+4. Verify the calculated results
+5. Click Save Profile
+6. Verify the saved profile appears on the page
+```
+
+Expected result:
+
+```txt
+All specs passed!
+```
+
+To open Cypress in interactive mode:
+
+```bash
+npm run cy:open
+```
+
+---
+
+## 🔁 CI/CD Pipeline
+
+This project includes a GitHub Actions CI pipeline that runs automatically on every push or pull request to the `main` branch.
+
+The pipeline helps ensure that the project remains stable and that new changes do not break the system.
+
+---
+
+### ✅ What the CI Pipeline Does
+
+The CI pipeline performs the following steps:
+
+| Step | Description |
+|---|---|
+| 📥 Checkout Repository | Downloads the project code from GitHub. |
+| 🟩 Setup Node.js | Installs the required Node.js version. |
+| 📦 Install Backend Dependencies | Installs backend packages using `npm ci`. |
+| 📦 Install Frontend Dependencies | Installs frontend packages using `npm ci`. |
+| 🐳 Start Docker Services | Starts PostgreSQL, backend, and frontend containers using Docker Compose. |
+| ❤️ Health Check | Waits until the backend `/health` endpoint is available. |
+| 🔺 Prisma Generate | Generates the Prisma Client. |
+| 🗄️ Prisma Migrate | Applies database migrations. |
+| ✅ Backend Tests | Runs backend unit and integration tests. |
+| 🧪 Frontend Tests | Runs frontend component tests using Vitest. |
+| 🌐 Cypress E2E Tests | Runs end-to-end tests using Cypress. |
+| 🧹 Stop Docker Services | Stops all Docker containers after the tests finish. |
+
+---
+
+### 📄 CI Workflow File
+
+The GitHub Actions workflow is defined in:
+
+```txt
+.github/workflows/ci.yml
+```
+
+This file controls the automated CI process.
+
+---
+
+### 🧪 Tests Covered by CI
+
+The CI pipeline runs several types of tests:
+
+| Test Type | Tool | Purpose |
+|---|---|---|
+| Backend Unit Tests | Jest | Tests the financial calculation logic. |
+| Backend Integration Tests | Jest + Supertest | Tests backend API routes. |
+| Frontend Component Test | Vitest + React Testing Library | Tests the React UI behavior. |
+| E2E Test | Cypress | Simulates a real user flow in the browser. |
+
+---
+
+### 🚦 CI Status Badge
+
+The README includes a CI status badge at the top of the page.
+
+The badge shows whether the latest CI run passed or failed.
+
+A green badge means:
+
+```txt
+The project builds successfully and all automated tests passed.
 ```
 
 ---
@@ -699,6 +858,9 @@ cd frontend
 npm install
 npm run dev
 npm run build
+npm test
+npm run cy:open
+npm run cy:run
 ```
 
 ---
@@ -737,8 +899,13 @@ Implemented:
 - ✅ Prisma ORM
 - ✅ Docker Compose
 - ✅ Full-stack Docker setup
-- ✅ Unit tests
-- ✅ Integration tests
+- ✅ Backend unit tests
+- ✅ Backend integration tests
+- ✅ Frontend component test
+- ✅ Cypress E2E test
+- ✅ GitHub Actions CI Pipeline
+- ✅ Automated CI on every push to `main`
+- ✅ CI status badge in README
 - ✅ Profile saving
 - ✅ Profile loading
 - ✅ Investment projection chart
@@ -746,10 +913,9 @@ Implemented:
 
 Planned next steps:
 
-- ⏳ Add frontend component tests
-- ⏳ Add Cypress end-to-end tests
-- ⏳ Add GitHub Actions CI/CD pipeline
 - ⏳ Add staging deployment
 - ⏳ Improve UI and documentation
+- ⏳ Add production deployment
+- ⏳ Add more E2E tests for edge cases
 
 ---
