@@ -8,6 +8,14 @@ The project was developed as part of an **Introduction to DevOps** course and de
 
 ---
 
+## 📌 Quick Project Summary
+
+For a shorter and cleaner overview of the project, see:
+
+[PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)
+
+---
+
 ## 📌 Project Overview
 
 The Intelligent Investor Platform allows users to enter their financial details and receive a clear monthly spending plan based on predefined financial rules.
@@ -208,6 +216,7 @@ intelligent-investor-platform/
 ├── docker-compose.prod.yml
 ├── .env.example
 ├── .gitignore
+├── PROJECT_SUMMARY.md
 └── README.md
 ```
 
@@ -275,7 +284,8 @@ This section explains the main files in the project and their roles in a simple 
 | 🚀 | `docker-compose.prod.yml` | Runs a separate production-like environment with its own frontend, backend, database, ports, and volume. |
 | 🧪 | `.env.example` | Example environment file that shows which variables are required. Safe to upload to GitHub. |
 | 🚫 | `.gitignore` | Defines files and folders that should not be uploaded to GitHub, such as `node_modules` and `.env`. |
-| 📘 | `README.md` | Main project documentation file. |
+| 📌 | `PROJECT_SUMMARY.md` | Short project summary for presentation and submission. |
+| 📘 | `README.md` | Main detailed project documentation file. |
 
 ---
 
@@ -588,8 +598,6 @@ The project includes a separate staging environment.
 The staging environment is used to test the application before moving it to production.  
 It runs separately from the regular local environment and uses different ports and a separate PostgreSQL database.
 
----
-
 ### 🧩 Staging Services
 
 | Service | URL / Port | Description |
@@ -598,8 +606,6 @@ It runs separately from the regular local environment and uses different ports a
 | 🚀 Backend Staging | `http://localhost:5051` | Runs the Express backend. |
 | ❤️ Backend Health Check | `http://localhost:5051/health` | Checks if the backend and database are connected. |
 | 🐘 PostgreSQL Staging | `localhost:5434` | Separate PostgreSQL database for staging. |
-
----
 
 ### ▶️ Start Staging
 
@@ -614,8 +620,6 @@ This command builds and starts:
 - 🐘 Staging PostgreSQL database
 - 🚀 Staging backend
 - 🎨 Staging frontend
-
----
 
 ### ❤️ Check Staging Health
 
@@ -635,8 +639,6 @@ Expected response:
 }
 ```
 
----
-
 ### 🎨 Open Staging Frontend
 
 Open:
@@ -652,8 +654,6 @@ No saved profiles yet.
 ```
 
 This is normal because the staging database is separate from the regular local database.
-
----
 
 ### 🛑 Stop Staging
 
@@ -672,8 +672,6 @@ The project includes a separate production-like Docker environment.
 The production environment is used to run the project in a cleaner and more isolated setup.  
 It uses separate containers, separate ports, and a separate PostgreSQL database.
 
----
-
 ### 🧩 Production Services
 
 | Service | URL / Port | Description |
@@ -682,8 +680,6 @@ It uses separate containers, separate ports, and a separate PostgreSQL database.
 | 🚀 Backend Production | `http://localhost:5052` | Runs the Express backend. |
 | ❤️ Backend Health Check | `http://localhost:5052/health` | Checks if the backend and database are connected. |
 | 🐘 PostgreSQL Production | `localhost:5435` | Separate PostgreSQL database for production. |
-
----
 
 ### ▶️ Start Production
 
@@ -698,8 +694,6 @@ This command builds and starts:
 - 🐘 Production PostgreSQL database
 - 🚀 Production backend
 - 🎨 Production frontend
-
----
 
 ### ❤️ Check Production Health
 
@@ -718,8 +712,6 @@ Expected response:
   "database": "Connected"
 }
 ```
-
----
 
 ### 🎨 Open Production Frontend
 
@@ -742,8 +734,6 @@ No saved profiles yet.
 ```
 
 This is normal because the production database is separate from the local and staging databases.
-
----
 
 ### 🛑 Stop Production
 
@@ -1052,8 +1042,6 @@ This project includes several layers of automated testing to verify the backend 
 
 The tests help ensure that new changes do not break the main functionality of the system.
 
----
-
 ### ✅ Test Coverage Summary
 
 | Test Area | Tool | Location | What It Checks |
@@ -1101,8 +1089,6 @@ The edge case tests include:
 | Valid profile submission | The profile is calculated, saved, and displayed correctly. |
 
 These tests improve confidence that the application handles both normal and incorrect user actions correctly.
-
----
 
 ### ▶️ Running Cypress Tests
 
@@ -1322,6 +1308,7 @@ Implemented:
 - ✅ Automated CI on every push to `main`
 - ✅ CI status badge in README
 - ✅ Project screenshots in README
+- ✅ Project summary documentation
 - ✅ Profile saving
 - ✅ Profile loading
 - ✅ Investment projection chart
@@ -1335,4 +1322,3 @@ Optional next steps:
 - ⏳ Add user authentication
 
 ---
-

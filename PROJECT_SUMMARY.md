@@ -611,8 +611,3 @@ Possible future improvements:
 
 ---
 
-## 👤 Author
-
-**Yehuda Baza**  
-Software Engineering Student  
-SCE – Shamoon College of Engineering
