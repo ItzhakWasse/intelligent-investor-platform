@@ -4,7 +4,7 @@
 
 A full-stack personal finance platform that helps users calculate a monthly spending plan, save financial profiles, and visualize long-term investment growth.
 
-The project was developed as part of an **Introduction to DevOps** course and demonstrates a complete full-stack system using React, Node.js, Express, PostgreSQL, Prisma ORM, Docker, Docker Compose, automated tests, Cypress E2E testing, and GitHub Actions CI/CD.
+The project was developed as part of an **Introduction to DevOps** course and demonstrates a complete full-stack system using React, Node.js, Express, PostgreSQL, Prisma ORM, Docker, Docker Compose, automated tests, Cypress E2E testing, staging environment, and GitHub Actions CI/CD.
 
 ---
 
@@ -33,6 +33,10 @@ Users can also save financial profiles to the database and load them later.
 - 🐘 PostgreSQL database
 - 🔺 Prisma ORM
 - 🐳 Full Docker Compose setup
+- 🧪 Local development environment
+- 🚦 Separate staging environment
+- 🗄️ Separate staging database
+- 🔄 Automatic Prisma migrations on container startup
 - 📊 15-year investment projection chart
 - 💾 Save and load financial profiles
 - ✅ Backend unit tests
@@ -114,6 +118,7 @@ The CI pipeline runs automatically on every push to `main` and verifies the proj
 |---|---|
 | 🐳 Docker | Run services in containers |
 | 🧩 Docker Compose | Run frontend, backend, and database together |
+| 🚦 Staging Environment | Test the full system before production |
 | 🔁 GitHub Actions | Run automated CI pipeline |
 | 🌿 Git | Version control |
 | ☁️ GitHub | Remote repository |
@@ -194,6 +199,7 @@ intelligent-investor-platform/
 │   └── vite.config.js
 │
 ├── docker-compose.yml
+├── docker-compose.staging.yml
 ├── .env.example
 ├── .gitignore
 └── README.md
@@ -241,13 +247,13 @@ This section explains the main files in the project and their roles in a simple 
 | 🚪 | `frontend/src/main.jsx` | Entry point of the React app. It renders `App.jsx`. |
 | 🖼️ | `frontend/src/App.jsx` | Main frontend component. Displays the form, results, chart, and saved profiles. |
 | 🧪 | `frontend/src/App.test.jsx` | Frontend component test that verifies calculation results appear in the UI. |
-| 🔌 | `frontend/src/api/profilesApi.js` | Handles HTTP requests from the frontend to the backend API. |
+| 🔌 | `frontend/src/api/profilesApi.js` | Handles HTTP requests from the frontend to the backend API. Uses environment-based API URL. |
 | 💅 | `frontend/src/index.css` | Main CSS file that loads Tailwind CSS. |
 | 🧾 | `frontend/src/App.css` | Additional CSS file for frontend styling. |
 | 🖼️ | `frontend/src/assets/` | Stores static assets such as images, logos, and icons. |
 | 🌐 | `frontend/cypress/e2e/financial-profile.cy.js` | Cypress E2E and edge case tests that simulate real user flows in the browser. |
 | ⚙️ | `frontend/cypress.config.js` | Cypress configuration file. |
-| 🐳 | `frontend/Dockerfile` | Instructions for building the frontend Docker image and serving it with Nginx. |
+| 🐳 | `frontend/Dockerfile` | Instructions for building the frontend Docker image and serving it with Nginx. Supports `VITE_API_BASE_URL`. |
 | 🚫 | `frontend/.dockerignore` | Tells Docker which frontend files should not be copied into the image. |
 
 ---
@@ -258,7 +264,8 @@ This section explains the main files in the project and their roles in a simple 
 |---|---|---|
 | 🔁 | `.github/workflows/ci.yml` | GitHub Actions workflow that runs the automated CI pipeline. |
 | 🖼️ | `docs/screenshots/` | Stores project screenshots used in the README documentation. |
-| 🐳 | `docker-compose.yml` | Runs the full system: PostgreSQL, backend, and frontend. |
+| 🐳 | `docker-compose.yml` | Runs the regular full-stack environment: PostgreSQL, backend, and frontend. |
+| 🚦 | `docker-compose.staging.yml` | Runs a separate staging environment with its own frontend, backend, database, ports, and volume. |
 | 🧪 | `.env.example` | Example environment file that shows which variables are required. Safe to upload to GitHub. |
 | 🚫 | `.gitignore` | Defines files and folders that should not be uploaded to GitHub, such as `node_modules` and `.env`. |
 | 📘 | `README.md` | Main project documentation file. |
@@ -535,6 +542,12 @@ This command starts:
 - 🚀 Backend container
 - ⚛️ Frontend container
 
+The backend container runs Prisma migrations automatically before starting the server:
+
+```bash
+npx prisma migrate deploy && node src/server.js
+```
+
 Open the frontend:
 
 ```txt
@@ -561,19 +574,145 @@ docker ps
 
 ---
 
+## 🚦 Running the Staging Environment
+
+The project includes a separate staging environment.
+
+The staging environment is used to test the application before moving it to production.  
+It runs separately from the regular local environment and uses different ports and a separate PostgreSQL database.
+
+---
+
+### 🧩 Staging Services
+
+| Service | URL / Port | Description |
+|---|---|---|
+| 🎨 Frontend Staging | `http://localhost:8080` | Runs the React frontend through Docker and Nginx. |
+| 🚀 Backend Staging | `http://localhost:5051` | Runs the Express backend. |
+| ❤️ Backend Health Check | `http://localhost:5051/health` | Checks if the backend and database are connected. |
+| 🐘 PostgreSQL Staging | `localhost:5434` | Separate PostgreSQL database for staging. |
+
+---
+
+### ▶️ Start Staging
+
+From the root project folder, run:
+
+```bash
+docker compose -f docker-compose.staging.yml up --build -d
+```
+
+This command builds and starts:
+
+- 🐘 Staging PostgreSQL database
+- 🚀 Staging backend
+- 🎨 Staging frontend
+
+---
+
+### ❤️ Check Staging Health
+
+Open:
+
+```txt
+http://localhost:5051/health
+```
+
+Expected response:
+
+```json
+{
+  "status": "OK",
+  "service": "Intelligent Investor Backend",
+  "database": "Connected"
+}
+```
+
+---
+
+### 🎨 Open Staging Frontend
+
+Open:
+
+```txt
+http://localhost:8080
+```
+
+If the staging database is empty, the frontend will show:
+
+```txt
+No saved profiles yet.
+```
+
+This is normal because the staging database is separate from the regular local database.
+
+---
+
+### 🛑 Stop Staging
+
+To stop the staging environment, run:
+
+```bash
+docker compose -f docker-compose.staging.yml down
+```
+
+---
+
+### 🔄 Automatic Database Migrations
+
+The staging backend container runs Prisma migrations automatically when it starts:
+
+```bash
+npx prisma migrate deploy && node src/server.js
+```
+
+This means that if the staging database is new or empty, Prisma automatically creates the required tables before the backend server starts.
+
+The staging database includes:
+
+- `financial_profiles`
+- `spending_plans`
+
+---
+
+### 🧠 Why Staging Is Useful
+
+The staging environment helps verify that the full system works before production.
+
+It allows testing:
+
+- Docker build
+- Frontend container
+- Backend container
+- PostgreSQL connection
+- Prisma migrations
+- API communication
+- Health check endpoint
+- Full-stack behavior
+
+---
+
 ## 🐳 Docker Explanation
 
 ### Container
 
 A container is an isolated environment that runs one part of the system.
 
-In this project:
+In the regular local environment:
 
 | Container | Purpose |
 |---|---|
 | `intelligent_investor_frontend` | Runs the React frontend with Nginx |
 | `intelligent_investor_backend` | Runs the Node.js Express backend |
 | `intelligent_investor_postgres` | Runs the PostgreSQL database |
+
+The project also includes a separate staging environment:
+
+| Staging Container | Purpose |
+|---|---|
+| `intelligent_investor_staging_frontend` | Runs the staging React frontend with Nginx |
+| `intelligent_investor_staging_backend` | Runs the staging Node.js Express backend |
+| `intelligent_investor_staging_postgres` | Runs the staging PostgreSQL database |
 
 ---
 
@@ -606,10 +745,18 @@ frontend/Dockerfile
 
 ### Docker Compose
 
-Docker Compose runs all services together using:
+Docker Compose runs services together using configuration files.
+
+Regular environment:
 
 ```txt
 docker-compose.yml
+```
+
+Staging environment:
+
+```txt
+docker-compose.staging.yml
 ```
 
 ---
@@ -618,7 +765,9 @@ docker-compose.yml
 
 A volume stores database data permanently.
 
-In this project, the PostgreSQL volume keeps database data even if containers are stopped.
+In this project, PostgreSQL volumes keep database data even if containers are stopped.
+
+The staging environment has its own separate volume, so staging data does not mix with the regular local database.
 
 ---
 
@@ -912,6 +1061,18 @@ docker compose logs postgres
 
 ---
 
+### 🚦 Docker Staging
+
+```bash
+docker compose -f docker-compose.staging.yml up --build -d
+docker compose -f docker-compose.staging.yml down
+docker compose -f docker-compose.staging.yml logs backend
+docker compose -f docker-compose.staging.yml logs frontend
+docker compose -f docker-compose.staging.yml logs postgres
+```
+
+---
+
 ### 🌿 Git
 
 ```bash
@@ -933,6 +1094,11 @@ Implemented:
 - ✅ Prisma ORM
 - ✅ Docker Compose
 - ✅ Full-stack Docker setup
+- ✅ Local Docker environment
+- ✅ Staging Docker environment
+- ✅ Separate staging database
+- ✅ Separate staging frontend and backend ports
+- ✅ Automatic Prisma migrations on container startup
 - ✅ Docker build check in CI
 - ✅ Backend unit tests
 - ✅ Backend integration tests
@@ -951,7 +1117,6 @@ Implemented:
 
 Planned next steps:
 
-- ⏳ Add staging deployment
 - ⏳ Improve UI and documentation
 - ⏳ Add production deployment
 
