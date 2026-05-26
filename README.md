@@ -1322,3 +1322,13 @@ Optional next steps:
 - ⏳ Add user authentication
 
 ---
+
+## 👤 Authors
+
+**Yehuda Baza** 
+**Vladislav Rabinovich** 
+**Izhak Wasse** 
+**Aviv Nahum** 
+
+
+
