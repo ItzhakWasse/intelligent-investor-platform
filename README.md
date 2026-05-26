@@ -1325,10 +1325,7 @@ Optional next steps:
 
 ## 👤 Authors
 
-**Yehuda Baza** 
-**Vladislav Rabinovich** 
-**Izhak Wasse** 
-**Aviv Nahum** 
+**Yehuda Baza**, **Vladislav Rabinovich**, **Izhak Wasse**, **Aviv Nahum** 
 
 
 
