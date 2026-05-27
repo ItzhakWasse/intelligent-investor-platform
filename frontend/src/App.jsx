@@ -51,10 +51,25 @@ function App() {
     setError("");
     setMessage("");
 
+    const grossSalaryNumber = formData.grossSalary
+      ? Number(formData.grossSalary)
+      : 0;
+
+    const bankNetNumber = formData.bankNet
+      ? Number(formData.bankNet)
+      : grossSalaryNumber
+        ? Math.round(grossSalaryNumber * 0.7)
+        : 0;
+
+    if (!bankNetNumber) {
+      setError("Bank net is required");
+      return;
+    }
+
     try {
       const result = await calculateSpendingPlan({
-        grossSalary: Number(formData.grossSalary),
-        bankNet: formData.bankNet ? Number(formData.bankNet) : undefined,
+        grossSalary: grossSalaryNumber || undefined,
+        bankNet: bankNetNumber,
       });
 
       setPlan(result.data);
@@ -68,11 +83,36 @@ function App() {
     setError("");
     setMessage("");
 
+    const nameInputValue =
+      document.querySelector('input[placeholder="Yehuda Baza"]')?.value || "";
+
+    const finalName = formData.name.trim() || nameInputValue.trim();
+
+    if (!finalName) {
+      setError("Name is required");
+      return;
+    }
+
+    const grossSalaryNumber = formData.grossSalary
+      ? Number(formData.grossSalary)
+      : 0;
+
+    const bankNetNumber = formData.bankNet
+      ? Number(formData.bankNet)
+      : grossSalaryNumber
+        ? Math.round(grossSalaryNumber * 0.7)
+        : 0;
+
+    if (!bankNetNumber) {
+      setError("Bank net is required");
+      return;
+    }
+
     try {
       const result = await createProfile({
-        name: formData.name,
-        grossSalary: Number(formData.grossSalary),
-        bankNet: Number(formData.bankNet),
+        name: finalName,
+        grossSalary: grossSalaryNumber || undefined,
+        bankNet: bankNetNumber,
       });
 
       const latestPlan = result.data.spendingPlans[0];
@@ -86,6 +126,11 @@ function App() {
         guiltFreeSpending: latestPlan.guiltFreeSpending,
         wealthProjection: latestPlan.wealthProjection,
       });
+
+      setFormData((prev) => ({
+        ...prev,
+        name: finalName,
+      }));
 
       setMessage("Profile saved successfully");
       await loadProfiles();
@@ -332,9 +377,11 @@ function App() {
                   className="text-left border rounded-xl p-4 hover:bg-slate-50"
                 >
                   <h3 className="font-bold">{profile.name}</h3>
+
                   <p className="text-sm text-slate-600">
                     Gross: ₪{Number(profile.grossSalary).toLocaleString()}
                   </p>
+
                   <p className="text-sm text-slate-600">
                     Bank Net: ₪{Number(profile.bankNet).toLocaleString()}
                   </p>
