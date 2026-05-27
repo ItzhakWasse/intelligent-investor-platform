@@ -29,3 +29,6 @@ backend/prisma/dev.db-journal
 
 # Docker temporary files
 *.pid
+# Cypress generated files
+frontend/cypress/screenshots/
+frontend/cypress/videos/
