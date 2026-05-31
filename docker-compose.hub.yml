@@ -1,7 +1,7 @@
 services:
   postgres:
     image: yeuda4222/intelligent-investor-db:latest
-    container_name: intelligent_investor_prod_postgres
+    container_name: intelligent_investor_hub_postgres
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -9,19 +9,15 @@ services:
       POSTGRES_DB: intelligent_investor_prod_db
     ports:
       - "5435:5432"
-    volumes:
-      - intelligent_investor_prod_postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d intelligent_investor_prod_db"]
-      interval: 10s
+      interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: intelligent_investor_prod_backend
+    image: yeuda4222/intelligent-investor-backend:latest
+    container_name: intelligent_investor_hub_backend
     restart: always
     environment:
       PORT: 5050
@@ -31,21 +27,13 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: sh -c "npx prisma migrate deploy && node src/server.js"
+    command: sh -c "node src/server.js"
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        VITE_API_BASE_URL: http://localhost:5052
-        VITE_APP_ENV: Production
-    container_name: intelligent_investor_prod_frontend
+    image: yeuda4222/intelligent-investor-frontend:latest
+    container_name: intelligent_investor_hub_frontend
     restart: always
     ports:
       - "8090:80"
     depends_on:
       - backend
-
-volumes:
-  intelligent_investor_prod_postgres_data:
