@@ -1,36 +1,67 @@
+
+## 👤 Authors
+
+**Yehuda Baza**, **Vladislav Rabinovich**, **Izhak Wasse**, **Aviv Nahum**
+---
+
+
 # 💰 The Intelligent Investor Platform
 
 [![CI Pipeline](https://github.com/yeudaba/intelligent-investor-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/yeudaba/intelligent-investor-platform/actions/workflows/ci.yml)
 
-A full-stack personal finance platform that helps users calculate a monthly spending plan, save financial profiles, and visualize long-term investment growth.
+A full-stack personal finance platform for calculating monthly spending buckets, saving financial profiles, and visualizing long-term investment growth.
 
-The project was developed as part of an **Introduction to DevOps** course and demonstrates a complete full-stack system using React, Node.js, Express, PostgreSQL, Prisma ORM, Docker, Docker Compose, automated tests, Cypress E2E testing, local/staging/production environments, environment badge, and GitHub Actions CI/CD.
+The project was developed as part of an **Introduction to DevOps** course and demonstrates a complete full-stack system with Docker, Docker Compose, Docker Hub, automated testing, and GitHub Actions CI/CD.
 
 ---
 
 ## 📌 Quick Project Summary
 
-For a shorter and cleaner overview of the project, see:
+The Intelligent Investor Platform allows users to enter financial details such as name, gross salary, and bank net income.
 
-[PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)
+The system calculates a monthly spending plan and displays:
+
+- 🏠 Fixed Costs
+- 🎯 Savings Goals
+- 📈 Active Investments
+- 🛍️ Guilt-Free Spending
+- 📊 15-Year Investment Projection
+
+Users can also save financial profiles to a PostgreSQL database and load saved profiles later.
 
 ---
 
-## 📌 Project Overview
+## 🧰 Technologies Used
 
-The Intelligent Investor Platform allows users to enter their financial details and receive a clear monthly spending plan based on predefined financial rules.
+### 🎨 Frontend
 
-The system calculates:
+- ⚛️ React
+- ⚡ Vite
+- 🎨 Tailwind CSS
+- 🔌 Axios
+- 📊 Recharts
+- 🧪 Vitest
+- 🌐 Cypress
 
-| Category | Calculation |
-|---|---|
-| 🏠 Fixed Costs | 55% of bank net income |
-| 🎯 Savings Goals | 10% of bank net income |
-| 📈 Active Investments | 10% of bank net income |
-| 🛍️ Guilt-Free Spending | 27.5% of bank net income |
-| 📊 Wealth Projection | 15-year projection with 7% annual return |
+### 🖥️ Backend
 
-Users can also save financial profiles to the database and load them later.
+- 🟩 Node.js
+- 🚀 Express
+- 🔺 Prisma ORM
+- 🐘 PostgreSQL
+- ✅ Jest
+- 🧪 Supertest
+- 🌐 CORS
+- 🔐 Dotenv
+
+### 🐳 DevOps
+
+- 🐳 Docker
+- 🧩 Docker Compose
+- ☁️ Docker Hub
+- 🔁 GitHub Actions
+- 🌿 Git / GitHub
+- 🚦 Local, Staging, Production-like, and Docker Hub environments
 
 ---
 
@@ -39,102 +70,20 @@ Users can also save financial profiles to the database and load them later.
 - ⚛️ React frontend
 - 🚀 Node.js and Express backend
 - 🐘 PostgreSQL database
-- 🔺 Prisma ORM
-- 🐳 Full Docker Compose setup
-- 🧪 Local development environment
-- 🚦 Separate staging environment
-- 🚀 Separate production environment
-- 🗄️ Separate databases for local, staging, and production
-- 🏷️ Environment badge displayed in the frontend
-- 🔄 Automatic Prisma migrations on container startup
-- 📊 15-year investment projection chart
+- 🔺 Prisma ORM database connection
+- 📊 Financial spending bucket calculation
+- 📈 15-year investment projection chart
 - 💾 Save and load financial profiles
-- ✅ Backend unit tests
-- ✅ Backend integration tests
-- 🧪 Frontend component test
-- 🌐 Cypress E2E test
+- ❤️ Backend health check endpoint
+- 🐳 Full Docker support
+- 🧩 Docker Compose for running all services together
+- ☁️ Docker Hub images for frontend, backend, and database
+- 🧪 Backend tests with Jest
+- 🧪 Frontend tests with Vitest
+- 🌐 Cypress E2E tests
 - ⚠️ Cypress edge case tests
 - 🔁 GitHub Actions CI pipeline
-- ❤️ Health check endpoint
-- 🌐 Full-stack communication between frontend, backend, and database
-
----
-
-## 🖼️ Project Screenshots
-
-### 🎨 Frontend Application
-
-The main React interface allows users to enter financial details, calculate a monthly spending plan, view investment projection, and save financial profiles.
-
-![Frontend Application](docs/screenshots/frontend-home.png)
-
----
-
-### ❤️ Backend Health Check
-
-The backend exposes a `/health` endpoint that confirms the Express server is running and the PostgreSQL database is connected.
-
-![Backend Health Check](docs/screenshots/backend-health.png)
-
----
-
-### 🐳 Docker Compose
-
-The full application is containerized using Docker Compose, including PostgreSQL, backend, and frontend services.
-
-![Docker Compose](docs/screenshots/docker-compose.png)
-
----
-
-### 🔁 GitHub Actions CI Pipeline
-
-The CI pipeline runs automatically on every push to `main` and verifies the project by running backend tests, frontend tests, Cypress E2E tests, and Docker build checks.
-
-![GitHub Actions](docs/screenshots/github-actions.png)
-
----
-
-## 🧰 Technologies Used
-
-### 🎨 Frontend
-
-| Technology | Purpose |
-|---|---|
-| ⚛️ React | Build the user interface |
-| ⚡ Vite | Fast frontend development and build tool |
-| 🎨 Tailwind CSS | Styling and responsive design |
-| 🔌 Axios | Send HTTP requests to the backend |
-| 📊 Recharts | Display investment projection chart |
-| 🧪 Vitest | Run frontend component tests |
-| 🧩 React Testing Library | Test React UI behavior |
-| 🌐 Cypress | Run end-to-end browser tests |
-
-### 🖥️ Backend
-
-| Technology | Purpose |
-|---|---|
-| 🟩 Node.js | JavaScript runtime for backend |
-| 🚀 Express | Build REST API |
-| 🔺 Prisma ORM | Connect backend to PostgreSQL |
-| 🐘 PostgreSQL | Store financial profiles and spending plans |
-| ✅ Jest | Unit testing |
-| 🧪 Supertest | API integration testing |
-| 🌐 CORS | Allow frontend-backend communication |
-| 🔐 Dotenv | Load environment variables |
-
-### 🐳 DevOps
-
-| Tool | Purpose |
-|---|---|
-| 🐳 Docker | Run services in containers |
-| 🧩 Docker Compose | Run frontend, backend, and database together |
-| 🧪 Local Environment | Run and test the project during development |
-| 🚦 Staging Environment | Test the full system before production |
-| 🚀 Production Environment | Run the production-like version of the full system |
-| 🏷️ Environment Badge | Shows whether the frontend is running in Local, Staging, or Production mode |
-| 🔁 GitHub Actions | Run automated CI pipeline |
-| 🌿 Git | Version control |
-| ☁️ GitHub | Remote repository |
+- 🐳 Docker build validation in CI
 
 ---
 
@@ -146,13 +95,6 @@ intelligent-investor-platform/
 ├── .github/
 │   └── workflows/
 │       └── ci.yml
-│
-├── docs/
-│   └── screenshots/
-│       ├── frontend-home.png
-│       ├── backend-health.png
-│       ├── docker-compose.png
-│       └── github-actions.png
 │
 ├── backend/
 │   ├── prisma/
@@ -185,6 +127,13 @@ intelligent-investor-platform/
 │   ├── package.json
 │   └── package-lock.json
 │
+├── database/
+│   ├── Dockerfile
+│   └── init.sql
+│
+├── docs/
+│   └── screenshots/
+│
 ├── frontend/
 │   ├── cypress/
 │   │   └── e2e/
@@ -214,6 +163,7 @@ intelligent-investor-platform/
 ├── docker-compose.yml
 ├── docker-compose.staging.yml
 ├── docker-compose.prod.yml
+├── docker-compose.hub.yml
 ├── .env.example
 ├── .gitignore
 ├── PROJECT_SUMMARY.md
@@ -224,87 +174,96 @@ intelligent-investor-platform/
 
 ## 📂 File Responsibilities
 
-This section explains the main files in the project and their roles in a simple and organized way.
+This section explains the main files and folders in the project.
 
 ### 🖥️ Backend Files
 
-| Icon | File / Folder | Role |
-|---|---|---|
-| 📦 | `backend/package.json` | Defines backend dependencies, scripts, and project settings. |
-| 🔒 | `backend/package-lock.json` | Locks the exact versions of backend packages. |
-| 🔐 | `backend/.env` | Stores real backend environment variables such as `PORT` and `DATABASE_URL`. This file should not be uploaded to GitHub. |
-| 🔺 | `backend/prisma/schema.prisma` | Defines the database models, tables, fields, and relationships. |
-| 🧱 | `backend/prisma/migrations/` | Stores database migration files created by Prisma. |
-| 🚀 | `backend/src/server.js` | Starts the backend server and listens on the configured port. |
-| 🧠 | `backend/src/app.js` | Defines the Express app, middleware, and connects the routes. |
-| 🗄️ | `backend/src/config/db.js` | Creates and exports the Prisma Client for database access. |
-| 🧮 | `backend/src/services/calculationService.js` | Contains all financial calculation logic. |
-| 🧑‍💼 | `backend/src/controllers/profileController.js` | Handles API logic such as validation, calculations, saving profiles, and loading profiles. |
-| 🛣️ | `backend/src/routes/profileRoutes.js` | Defines API routes for calculations and financial profiles. |
-| ❤️ | `backend/src/routes/healthRoutes.js` | Defines the `/health` endpoint that checks backend and database status. |
-| ✅ | `backend/src/tests/calculationService.test.js` | Unit tests for the financial calculation functions. |
-| 🧪 | `backend/src/tests/profileRoutes.test.js` | Integration tests for backend API routes. |
-| 🐳 | `backend/Dockerfile` | Instructions for building the backend Docker image. |
-| 🚫 | `backend/.dockerignore` | Tells Docker which backend files should not be copied into the image. |
-
----
+| File / Folder | Role |
+|---|---|
+| `backend/package.json` | Defines backend dependencies and scripts. |
+| `backend/package-lock.json` | Locks exact backend package versions. |
+| `backend/.env` | Stores backend environment variables such as `PORT` and `DATABASE_URL`. This file should not be pushed to GitHub. |
+| `backend/prisma/schema.prisma` | Defines the database models, tables, fields, and relationships. |
+| `backend/prisma/migrations/` | Stores Prisma database migration files. |
+| `backend/src/server.js` | Starts the backend server and listens on the configured port. |
+| `backend/src/app.js` | Creates the Express app, connects middleware, and registers routes. |
+| `backend/src/config/db.js` | Creates and exports the Prisma Client for database access. |
+| `backend/src/services/calculationService.js` | Contains the financial calculation logic. |
+| `backend/src/controllers/profileController.js` | Handles the main backend logic for profiles, validation, calculations, saving, and loading. |
+| `backend/src/routes/profileRoutes.js` | Defines the API routes related to financial profiles. |
+| `backend/src/routes/healthRoutes.js` | Defines the `/health` route that checks backend and database status. |
+| `backend/src/tests/calculationService.test.js` | Unit tests for the financial calculation logic. |
+| `backend/src/tests/profileRoutes.test.js` | Integration tests for backend API routes. |
+| `backend/Dockerfile` | Defines how to build the backend Docker image. |
+| `backend/.dockerignore` | Defines files that should not be copied into the backend Docker image. |
 
 ### 🎨 Frontend Files
 
-| Icon | File / Folder | Role |
-|---|---|---|
-| 📦 | `frontend/package.json` | Defines frontend dependencies, scripts, and project settings. |
-| 🔒 | `frontend/package-lock.json` | Locks the exact versions of frontend packages. |
-| 🌐 | `frontend/index.html` | Main HTML file where the React app is mounted. |
-| ⚡ | `frontend/vite.config.js` | Configuration file for Vite. |
-| 🎨 | `frontend/tailwind.config.js` | Tailwind CSS configuration file. |
-| 🧩 | `frontend/postcss.config.js` | PostCSS configuration used by Tailwind CSS. |
-| 🚪 | `frontend/src/main.jsx` | Entry point of the React app. It renders `App.jsx`. |
-| 🖼️ | `frontend/src/App.jsx` | Main frontend component. Displays the form, results, chart, saved profiles, and environment badge. |
-| 🧪 | `frontend/src/App.test.jsx` | Frontend component test that verifies calculation results appear in the UI. |
-| 🔌 | `frontend/src/api/profilesApi.js` | Handles HTTP requests from the frontend to the backend API. Uses environment-based API URL. |
-| 💅 | `frontend/src/index.css` | Main CSS file that loads Tailwind CSS. |
-| 🧾 | `frontend/src/App.css` | Additional CSS file for frontend styling. |
-| 🖼️ | `frontend/src/assets/` | Stores static assets such as images, logos, and icons. |
-| 🌐 | `frontend/cypress/e2e/financial-profile.cy.js` | Cypress E2E and edge case tests that simulate real user flows in the browser. |
-| ⚙️ | `frontend/cypress.config.js` | Cypress configuration file. |
-| 🐳 | `frontend/Dockerfile` | Instructions for building the frontend Docker image and serving it with Nginx. Supports `VITE_API_BASE_URL` and `VITE_APP_ENV`. |
-| 🚫 | `frontend/.dockerignore` | Tells Docker which frontend files should not be copied into the image. |
+| File / Folder | Role |
+|---|---|
+| `frontend/package.json` | Defines frontend dependencies and scripts. |
+| `frontend/package-lock.json` | Locks exact frontend package versions. |
+| `frontend/index.html` | Main HTML file where the React app is mounted. |
+| `frontend/vite.config.js` | Vite configuration file. |
+| `frontend/tailwind.config.js` | Tailwind CSS configuration file. |
+| `frontend/postcss.config.js` | PostCSS configuration file used with Tailwind. |
+| `frontend/src/main.jsx` | Entry point of the React application. |
+| `frontend/src/App.jsx` | Main React component. Contains the financial form, calculation results, chart, saved profiles, and environment badge. |
+| `frontend/src/api/profilesApi.js` | Handles API requests from the frontend to the backend. |
+| `frontend/src/App.test.jsx` | Frontend component test using Vitest and React Testing Library. |
+| `frontend/src/index.css` | Main CSS file with Tailwind imports. |
+| `frontend/src/App.css` | Additional styling for the app. |
+| `frontend/src/assets/` | Stores static assets. |
+| `frontend/cypress/e2e/financial-profile.cy.js` | Cypress E2E and edge case tests. |
+| `frontend/cypress.config.js` | Cypress configuration file. |
+| `frontend/Dockerfile` | Defines how to build the frontend Docker image and serve it using Nginx. |
+| `frontend/.dockerignore` | Defines files that should not be copied into the frontend Docker image. |
 
----
+### 🗄️ Database Files
+
+| File / Folder | Role |
+|---|---|
+| `database/Dockerfile` | Builds a custom PostgreSQL database image. |
+| `database/init.sql` | Initializes the database schema when the database container starts. |
+| `yeuda4222/intelligent-investor-db:latest` | Docker Hub image for the project database. |
+
+The database image is useful because it allows the team to run the same PostgreSQL database structure directly from Docker Hub, without setting up the database manually.
 
 ### 🐳 Root Project Files
 
-| Icon | File / Folder | Role |
-|---|---|---|
-| 🔁 | `.github/workflows/ci.yml` | GitHub Actions workflow that runs the automated CI pipeline. |
-| 🖼️ | `docs/screenshots/` | Stores project screenshots used in the README documentation. |
-| 🐳 | `docker-compose.yml` | Runs the regular local full-stack environment: PostgreSQL, backend, and frontend. |
-| 🚦 | `docker-compose.staging.yml` | Runs a separate staging environment with its own frontend, backend, database, ports, and volume. |
-| 🚀 | `docker-compose.prod.yml` | Runs a separate production-like environment with its own frontend, backend, database, ports, and volume. |
-| 🧪 | `.env.example` | Example environment file that shows which variables are required. Safe to upload to GitHub. |
-| 🚫 | `.gitignore` | Defines files and folders that should not be uploaded to GitHub, such as `node_modules` and `.env`. |
-| 📌 | `PROJECT_SUMMARY.md` | Short project summary for presentation and submission. |
-| 📘 | `README.md` | Main detailed project documentation file. |
+| File / Folder | Role |
+|---|---|
+| `.github/workflows/ci.yml` | GitHub Actions workflow file that defines the CI pipeline. |
+| `docker-compose.yml` | Runs the regular local Docker environment. |
+| `docker-compose.staging.yml` | Runs the staging environment. |
+| `docker-compose.prod.yml` | Runs the production-like environment. |
+| `docker-compose.hub.yml` | Runs the full project using images pulled from Docker Hub. |
+| `.env.example` | Example environment file. Safe to upload to GitHub. |
+| `.gitignore` | Defines files and folders that should not be committed. |
+| `PROJECT_SUMMARY.md` | Short summary of the project. |
+| `README.md` | Main documentation file. |
+| `docs/screenshots/` | Stores screenshots used in project documentation. |
 
 ---
 
-## 🧮 Main Calculation Logic
+## 🧮 Financial Calculation Logic
 
-The main financial calculation logic is located in:
+The calculation logic is located in:
 
 ```txt
 backend/src/services/calculationService.js
 ```
 
-Calculation rules:
+The system uses the following rules:
 
 ```txt
 Estimated Bank Net = Gross Salary × 0.68
+
 Fixed Costs = Bank Net × 0.55
 Savings Goals = Bank Net × 0.10
 Active Investments = Bank Net × 0.10
 Guilt-Free Spending = Bank Net × 0.275
+
 Investment Projection = Investment × (1 + 0.07)^year
 ```
 
@@ -329,8 +288,6 @@ Stores the user's financial profile.
 | `createdAt` | Profile creation date |
 | `updatedAt` | Last update date |
 
----
-
 ### `spending_plans`
 
 Stores the calculated spending plan for each profile.
@@ -339,10 +296,10 @@ Stores the calculated spending plan for each profile.
 |---|---|
 | `id` | Unique spending plan ID |
 | `profileId` | Related financial profile ID |
-| `fixedCosts` | Fixed costs calculation |
-| `savingsGoals` | Savings goals calculation |
-| `activeInvestments` | Active investments calculation |
-| `guiltFreeSpending` | Guilt-free spending calculation |
+| `fixedCosts` | Fixed costs amount |
+| `savingsGoals` | Savings goals amount |
+| `activeInvestments` | Active investments amount |
+| `guiltFreeSpending` | Guilt-free spending amount |
 | `wealthProjection` | 15-year investment projection |
 | `createdAt` | Spending plan creation date |
 
@@ -356,7 +313,7 @@ Stores the calculated spending plan for each profile.
 GET /health
 ```
 
-Checks that the backend server is running and that the database connection is working.
+Checks that the backend is running and connected to the database.
 
 Example response:
 
@@ -368,15 +325,13 @@ Example response:
 }
 ```
 
----
-
 ### 🧮 Calculate Spending Plan
 
 ```http
 POST /api/calculate
 ```
 
-Calculates a financial spending plan without saving it to the database.
+Calculates a financial spending plan without saving it.
 
 Example request:
 
@@ -387,15 +342,13 @@ Example request:
 }
 ```
 
----
-
 ### 💾 Create Financial Profile
 
 ```http
 POST /api/profiles
 ```
 
-Creates a new financial profile and saves the calculated spending plan to the database.
+Creates and saves a financial profile in the database.
 
 Example request:
 
@@ -407,8 +360,6 @@ Example request:
 }
 ```
 
----
-
 ### 📋 Get All Profiles
 
 ```http
@@ -417,9 +368,16 @@ GET /api/profiles
 
 Returns all saved financial profiles.
 
----
+Example response:
 
-### 🔎 Get Profile by ID
+```json
+{
+  "message": "Financial profiles loaded successfully",
+  "data": []
+}
+```
+
+### 🔎 Get Profile By ID
 
 ```http
 GET /api/profiles/:id
@@ -429,158 +387,197 @@ Returns a specific financial profile by ID.
 
 ---
 
-## 🚀 Installation Guide
-
-This section explains what needs to be installed and where.
-
-### ✅ Prerequisites
-
-Before running the project, install:
-
-- 🟩 Node.js
-- 📦 npm
-- 🐳 Docker Desktop
-- 🌿 Git
-
----
-
-### 🖥️ Backend Installation
-
-Enter the backend folder:
-
-```bash
-cd backend
-```
-
-Install backend dependencies:
-
-```bash
-npm install
-```
-
-The main backend packages used in this project are:
-
-```bash
-npm install express cors dotenv @prisma/client
-npm install -D nodemon jest supertest prisma
-```
-
-Generate Prisma Client:
-
-```bash
-npx prisma generate
-```
-
-Run database migration:
-
-```bash
-npx prisma migrate dev
-```
-
-Run backend in development mode:
-
-```bash
-npm run dev
-```
-
-Backend runs on:
-
-```txt
-http://localhost:5050
-```
-
----
-
-### 🎨 Frontend Installation
-
-Enter the frontend folder:
-
-```bash
-cd frontend
-```
-
-Install frontend dependencies:
-
-```bash
-npm install
-```
-
-The main frontend packages used in this project are:
-
-```bash
-npm install axios recharts
-npm install -D tailwindcss@3.4.17 postcss autoprefixer
-npm install -D vitest @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom
-npm install -D cypress
-```
-
-Run frontend in development mode:
-
-```bash
-npm run dev
-```
-
-Frontend runs on:
-
-```txt
-http://localhost:5173
-```
-
----
-
 ## ⚙️ Environment Variables
 
-Create a `.env` file inside the `backend` folder.
+The backend uses environment variables from a `.env` file.
 
-Example:
+Example for local development:
 
 ```env
 PORT=5050
 DATABASE_URL="postgresql://postgres:postgres@localhost:5433/intelligent_investor_db?schema=public"
 ```
 
-The real `.env` file should not be committed to GitHub.
+Example for running backend tests against the Docker Hub database:
 
-The project includes `.env.example` as a safe example file.
+```env
+PORT=5050
+DATABASE_URL="postgresql://postgres:postgres@localhost:5435/intelligent_investor_prod_db?schema=public"
+```
+
+Important:
+
+```txt
+backend/.env should not be uploaded to GitHub.
+```
+
+Use `.env.example` as a safe example file.
 
 ---
 
-## 🐳 Running the Full Project With Docker
+## 🐳 Docker Explanation
 
-From the root project folder, run:
+Docker is used to run the project in isolated containers.
 
-```bash
-docker compose up --build -d
-```
+Instead of installing and running every part manually, Docker allows the whole system to run in a clean and consistent environment.
 
-This command starts:
-
-- 🐘 PostgreSQL container
-- 🚀 Backend container
-- ⚛️ Frontend container
-
-The backend container runs Prisma migrations automatically before starting the server:
-
-```bash
-npx prisma migrate deploy && node src/server.js
-```
-
-Open the frontend:
+### Image vs Container
 
 ```txt
-http://localhost:5173
+Image = a template/package used to create a container
+Container = a running instance of an image
 ```
 
-Check backend health:
+Simple example:
 
 ```txt
-http://localhost:5050/health
+Image is like a recipe.
+Container is like the meal created from that recipe.
 ```
 
-Stop all containers:
+### Containers in This Project
+
+| Container | Purpose |
+|---|---|
+| 🎨 Frontend container | Runs the React frontend through Nginx. |
+| 🚀 Backend container | Runs the Node.js and Express API. |
+| 🐘 Database container | Runs PostgreSQL and stores the data. |
+
+### Docker Images Used
+
+| Image | Purpose |
+|---|---|
+| `yeuda4222/intelligent-investor-frontend:latest` | Frontend image |
+| `yeuda4222/intelligent-investor-backend:latest` | Backend image |
+| `yeuda4222/intelligent-investor-db:latest` | Database image |
+| `postgres:16` | Official PostgreSQL image |
+
+### Dockerfile
+
+A Dockerfile contains the instructions for building a Docker image.
+
+This project includes:
+
+```txt
+backend/Dockerfile
+frontend/Dockerfile
+database/Dockerfile
+```
+
+### Docker Compose
+
+Docker Compose is used to run multiple services together.
+
+Instead of running frontend, backend, and database manually, Docker Compose starts everything with one command.
+
+Example:
 
 ```bash
-docker compose down
+docker compose -f docker-compose.hub.yml up -d
+```
+
+---
+
+## 🧠 Why Docker Is Useful
+
+Docker helps solve several problems:
+
+- It makes the project easier to run on another computer.
+- It prevents issues caused by different local environments.
+- It keeps frontend, backend, and database isolated.
+- It allows the full system to run with one command.
+- It makes the project closer to a real production setup.
+- It allows sharing ready images through Docker Hub.
+
+---
+
+## 🔌 Port Mapping
+
+The frontend, backend, and database run on different ports because they are separate services.
+
+| Service | Internal Container Port | External Local Port | Purpose |
+|---|---|---|---|
+| Frontend | `80` | `8090` | Opens the website in the browser |
+| Backend | `5050` | `5052` | Exposes the API |
+| Database | `5432` | `5435` | Exposes PostgreSQL locally |
+
+Example:
+
+```txt
+localhost:8090  → frontend container port 80
+localhost:5052  → backend container port 5050
+localhost:5435  → postgres container port 5432
+```
+
+Inside Docker Compose, the backend connects to the database using the service name:
+
+```txt
+postgres:5432
+```
+
+From the local computer, tests connect to the database using:
+
+```txt
+localhost:5435
+```
+
+---
+
+## 🚦 Environments
+
+The project includes multiple environments.
+
+| Environment | Frontend | Backend | Database | Purpose |
+|---|---|---|---|---|
+| Local | `http://localhost:5173` | `http://localhost:5050` | `localhost:5433` | Development |
+| Staging | `http://localhost:8080` | `http://localhost:5051` | `localhost:5434` | Testing before production |
+| Production-like | `http://localhost:8090` | `http://localhost:5052` | `localhost:5435` | Production-like run |
+| Docker Hub | `http://localhost:8090` | `http://localhost:5052` | `localhost:5435` | Run from Docker Hub images |
+
+This separation helps test the system safely without mixing data between environments.
+
+---
+
+## ☁️ Docker Hub
+
+The project images were uploaded to Docker Hub.
+
+Docker Hub repositories:
+
+```txt
+yeuda4222/intelligent-investor-frontend
+yeuda4222/intelligent-investor-backend
+yeuda4222/intelligent-investor-db
+```
+
+The Docker Hub environment allows another team member to run the full project without building the images locally.
+
+---
+
+## ☁️ Running the Project From Docker Hub
+
+From the root project folder:
+
+```bash
+cd ~/Desktop/intelligent-investor-platform
+```
+
+Stop previous containers:
+
+```bash
+docker compose -f docker-compose.hub.yml down
+```
+
+Pull the latest images from Docker Hub:
+
+```bash
+docker compose -f docker-compose.hub.yml pull
+```
+
+Start the full system:
+
+```bash
+docker compose -f docker-compose.hub.yml up -d
 ```
 
 Check running containers:
@@ -589,192 +586,89 @@ Check running containers:
 docker ps
 ```
 
----
-
-## 🚦 Running the Staging Environment
-
-The project includes a separate staging environment.
-
-The staging environment is used to test the application before moving it to production.  
-It runs separately from the regular local environment and uses different ports and a separate PostgreSQL database.
-
-### 🧩 Staging Services
-
-| Service | URL / Port | Description |
-|---|---|---|
-| 🎨 Frontend Staging | `http://localhost:8080` | Runs the React frontend through Docker and Nginx. |
-| 🚀 Backend Staging | `http://localhost:5051` | Runs the Express backend. |
-| ❤️ Backend Health Check | `http://localhost:5051/health` | Checks if the backend and database are connected. |
-| 🐘 PostgreSQL Staging | `localhost:5434` | Separate PostgreSQL database for staging. |
-
-### ▶️ Start Staging
-
-From the root project folder, run:
-
-```bash
-docker compose -f docker-compose.staging.yml up --build -d
-```
-
-This command builds and starts:
-
-- 🐘 Staging PostgreSQL database
-- 🚀 Staging backend
-- 🎨 Staging frontend
-
-### ❤️ Check Staging Health
-
-Open:
+Expected containers:
 
 ```txt
-http://localhost:5051/health
+intelligent_investor_hub_frontend
+intelligent_investor_hub_backend
+intelligent_investor_hub_postgres
 ```
 
-Expected response:
-
-```json
-{
-  "status": "OK",
-  "service": "Intelligent Investor Backend",
-  "database": "Connected"
-}
-```
-
-### 🎨 Open Staging Frontend
-
-Open:
-
-```txt
-http://localhost:8080
-```
-
-If the staging database is empty, the frontend will show:
-
-```txt
-No saved profiles yet.
-```
-
-This is normal because the staging database is separate from the regular local database.
-
-### 🛑 Stop Staging
-
-To stop the staging environment, run:
-
-```bash
-docker compose -f docker-compose.staging.yml down
-```
-
----
-
-## 🚀 Running the Production Environment
-
-The project includes a separate production-like Docker environment.
-
-The production environment is used to run the project in a cleaner and more isolated setup.  
-It uses separate containers, separate ports, and a separate PostgreSQL database.
-
-### 🧩 Production Services
-
-| Service | URL / Port | Description |
-|---|---|---|
-| 🎨 Frontend Production | `http://localhost:8090` | Runs the React frontend through Docker and Nginx. |
-| 🚀 Backend Production | `http://localhost:5052` | Runs the Express backend. |
-| ❤️ Backend Health Check | `http://localhost:5052/health` | Checks if the backend and database are connected. |
-| 🐘 PostgreSQL Production | `localhost:5435` | Separate PostgreSQL database for production. |
-
-### ▶️ Start Production
-
-From the root project folder, run:
-
-```bash
-docker compose -f docker-compose.prod.yml up --build -d
-```
-
-This command builds and starts:
-
-- 🐘 Production PostgreSQL database
-- 🚀 Production backend
-- 🎨 Production frontend
-
-### ❤️ Check Production Health
-
-Open:
-
-```txt
-http://localhost:5052/health
-```
-
-Expected response:
-
-```json
-{
-  "status": "OK",
-  "service": "Intelligent Investor Backend",
-  "database": "Connected"
-}
-```
-
-### 🎨 Open Production Frontend
-
-Open:
+Open the frontend:
 
 ```txt
 http://localhost:8090
 ```
 
-The frontend should display:
-
-```txt
-Environment: Production
-```
-
-If the production database is empty, the frontend will show:
-
-```txt
-No saved profiles yet.
-```
-
-This is normal because the production database is separate from the local and staging databases.
-
-### 🛑 Stop Production
-
-To stop the production environment, run:
+Check backend health:
 
 ```bash
-docker compose -f docker-compose.prod.yml down
+curl http://localhost:5052/health
+```
+
+Expected response:
+
+```json
+{
+  "status": "OK",
+  "service": "Intelligent Investor Backend",
+  "database": "Connected"
+}
+```
+
+Check profiles API:
+
+```bash
+curl http://localhost:5052/api/profiles
+```
+
+Expected response:
+
+```json
+{
+  "message": "Financial profiles loaded successfully",
+  "data": []
+}
+```
+
+Stop the Docker Hub environment:
+
+```bash
+docker compose -f docker-compose.hub.yml down
 ```
 
 ---
 
-## 🔄 Automatic Database Migrations
+## 🐳 Docker Hub Database Image
 
-The backend container runs Prisma migrations automatically when it starts:
+The project includes a custom database image:
 
-```bash
-npx prisma migrate deploy && node src/server.js
+```txt
+yeuda4222/intelligent-investor-db:latest
 ```
 
-This is configured in the Docker Compose files.
+This image is based on PostgreSQL and includes the database initialization file.
 
-It means that if a database is new or empty, Prisma automatically creates the required tables before the backend server starts.
+This is useful because:
 
-The database includes:
+- The database schema can be shared through Docker Hub.
+- Team members do not need to manually create tables.
+- The full project can run from Docker Hub images.
+- The database structure is consistent between team members.
 
-- `financial_profiles`
-- `spending_plans`
+In the Docker Hub environment, the database schema is already initialized by the database image.
 
-This behavior is used in:
+Because of that, the backend starts directly with:
 
-- Local Docker environment
-- Staging Docker environment
-- Production Docker environment
+```bash
+node src/server.js
+```
 
 ---
 
 ## 🏷️ Environment Badge
 
-The frontend displays an environment badge in the top header.
-
-The badge helps identify which environment is currently running.
+The frontend displays an environment badge.
 
 Examples:
 
@@ -784,240 +678,143 @@ Environment: Staging
 Environment: Production
 ```
 
-The value is controlled by the frontend build variable:
+The badge helps identify which environment is currently running.
+
+This is controlled by:
 
 ```txt
 VITE_APP_ENV
 ```
 
-The value is passed during the Docker build process using build arguments in the Docker Compose files.
-
-Regular local environment:
-
-```yaml
-args:
-  VITE_API_BASE_URL: http://localhost:5050
-  VITE_APP_ENV: Local
-```
-
-Staging environment:
-
-```yaml
-args:
-  VITE_API_BASE_URL: http://localhost:5051
-  VITE_APP_ENV: Staging
-```
-
-Production environment:
-
-```yaml
-args:
-  VITE_API_BASE_URL: http://localhost:5052
-  VITE_APP_ENV: Production
-```
-
-This is useful in DevOps because it makes the difference between local, staging, and production environments clear and visible in the user interface.
+This is useful in DevOps because it helps avoid confusion between environments.
 
 ---
 
-## 🧠 Why Multiple Environments Are Useful
+## 🧪 Testing
 
-Using multiple environments is an important DevOps practice.
+The project includes several types of automated tests.
 
-This project includes three environments:
+### ✅ Backend Unit Tests
 
-| Environment | Frontend | Backend | Database | Purpose |
-|---|---|---|---|---|
-| Local | `http://localhost:5173` | `http://localhost:5050` | `localhost:5433` | Development and regular testing |
-| Staging | `http://localhost:8080` | `http://localhost:5051` | `localhost:5434` | Testing before production |
-| Production | `http://localhost:8090` | `http://localhost:5052` | `localhost:5435` | Production-like isolated run |
-
-This separation helps test the system safely without mixing data between environments.
-
----
-
-## 🐳 Docker Explanation
-
-### Container
-
-A container is an isolated environment that runs one part of the system.
-
-In the regular local environment:
-
-| Container | Purpose |
-|---|---|
-| `intelligent_investor_frontend` | Runs the React frontend with Nginx |
-| `intelligent_investor_backend` | Runs the Node.js Express backend |
-| `intelligent_investor_postgres` | Runs the PostgreSQL database |
-
-In the staging environment:
-
-| Staging Container | Purpose |
-|---|---|
-| `intelligent_investor_staging_frontend` | Runs the staging React frontend with Nginx |
-| `intelligent_investor_staging_backend` | Runs the staging Node.js Express backend |
-| `intelligent_investor_staging_postgres` | Runs the staging PostgreSQL database |
-
-In the production environment:
-
-| Production Container | Purpose |
-|---|---|
-| `intelligent_investor_prod_frontend` | Runs the production React frontend with Nginx |
-| `intelligent_investor_prod_backend` | Runs the production Node.js Express backend |
-| `intelligent_investor_prod_postgres` | Runs the production PostgreSQL database |
-
----
-
-### Image
-
-An image is the template used to create a container.
-
-Example:
+Tool:
 
 ```txt
-postgres:16
+Jest
 ```
 
-This image is used to create the PostgreSQL container.
-
----
-
-### Dockerfile
-
-A Dockerfile contains instructions for building an image.
-
-This project has:
+Location:
 
 ```txt
-backend/Dockerfile
-frontend/Dockerfile
+backend/src/tests/calculationService.test.js
 ```
 
-The frontend Dockerfile supports environment variables during build time:
+What it checks:
 
-```txt
-VITE_API_BASE_URL
-VITE_APP_ENV
-```
+- Financial calculation logic
+- Fixed costs calculation
+- Savings goals calculation
+- Active investments calculation
+- Guilt-free spending calculation
+- Investment projection calculation
 
----
-
-### Docker Compose
-
-Docker Compose runs services together using configuration files.
-
-Regular local environment:
-
-```txt
-docker-compose.yml
-```
-
-Staging environment:
-
-```txt
-docker-compose.staging.yml
-```
-
-Production environment:
-
-```txt
-docker-compose.prod.yml
-```
-
-The regular environment builds the frontend with:
-
-```txt
-VITE_APP_ENV=Local
-```
-
-The staging environment builds the frontend with:
-
-```txt
-VITE_APP_ENV=Staging
-```
-
-The production environment builds the frontend with:
-
-```txt
-VITE_APP_ENV=Production
-```
-
-This allows the frontend to display the correct environment badge.
-
----
-
-### Volume
-
-A volume stores database data permanently.
-
-In this project, PostgreSQL volumes keep database data even if containers are stopped.
-
-Each environment has its own separate volume, so data does not mix between local, staging, and production.
-
----
-
-## 🧪 Running Tests
-
-### 🖥️ Backend Tests
-
-From the `backend` folder:
+Run:
 
 ```bash
 cd backend
 npm test
 ```
 
-The backend tests include:
+### 🧪 Backend Integration Tests
 
-- ✅ Unit tests for calculation logic
-- ✅ Integration tests for API routes
-- ✅ Health check test
-- ✅ Profile creation test
-- ✅ Profile loading test
-- ✅ Error handling tests
-
-Expected result:
+Tools:
 
 ```txt
-Test Suites: 2 passed
-Tests: 18 passed
+Jest + Supertest
 ```
 
----
+Location:
+
+```txt
+backend/src/tests/profileRoutes.test.js
+```
+
+What it checks:
+
+- API routes
+- Backend responses
+- Profile creation
+- Profile loading
+- Validation behavior
+- Database operations
+
+If the database runs through Docker Hub, use:
+
+```bash
+cd backend
+DATABASE_URL="postgresql://postgres:postgres@localhost:5435/intelligent_investor_prod_db?schema=public" npm test -- --runInBand
+```
 
 ### 🎨 Frontend Component Test
 
-From the `frontend` folder:
+Tools:
+
+```txt
+Vitest + React Testing Library
+```
+
+Location:
+
+```txt
+frontend/src/App.test.jsx
+```
+
+What it checks:
+
+- The React app renders correctly.
+- The user can enter salary values.
+- The calculation result appears in the UI.
+
+Run:
 
 ```bash
 cd frontend
 npm test
 ```
 
-The frontend test checks that the user can enter salary values, click `Calculate Plan`, and see the calculated bucket amounts in the UI.
+### 🌐 Cypress E2E Tests
 
-Expected result:
+Tool:
 
 ```txt
-Test Files: 1 passed
-Tests: 1 passed
+Cypress
 ```
 
----
+Location:
 
-### 🌐 Cypress E2E Test
-
-Make sure the full project is running first:
-
-```bash
-docker compose up --build -d
+```txt
+frontend/cypress/e2e/financial-profile.cy.js
 ```
 
-Then run Cypress from the `frontend` folder:
+What it checks:
+
+- The application loads successfully.
+- A user can calculate a financial plan.
+- A user can save a financial profile.
+- Saved profiles appear in the UI.
+- The investment projection chart is displayed.
+
+Run with the Docker Hub environment:
 
 ```bash
 cd frontend
-npm run cy:run
+npx cypress open --config baseUrl=http://localhost:8090
+```
+
+Run in headless mode:
+
+```bash
+cd frontend
+npx cypress run --config baseUrl=http://localhost:8090
 ```
 
 Expected result:
@@ -1027,154 +824,199 @@ Tests: 5
 Passing: 5
 Failing: 0
 ```
-
-To open Cypress in interactive mode:
-
-```bash
-npm run cy:open
-```
-
----
-
-## 🧪 Test Coverage
-
-This project includes several layers of automated testing to verify the backend logic, API routes, frontend behavior, and full user flow.
-
-The tests help ensure that new changes do not break the main functionality of the system.
-
-### ✅ Test Coverage Summary
-
-| Test Area | Tool | Location | What It Checks |
-|---|---|---|---|
-| Backend Unit Tests | Jest | `backend/src/tests/calculationService.test.js` | Verifies the financial calculation logic. |
-| Backend Integration Tests | Jest + Supertest | `backend/src/tests/profileRoutes.test.js` | Verifies backend API routes, validation, and responses. |
-| Frontend Component Test | Vitest + React Testing Library | `frontend/src/App.test.jsx` | Verifies that the React UI updates after user actions. |
-| Cypress E2E Test | Cypress | `frontend/cypress/e2e/financial-profile.cy.js` | Simulates a real user flow in the browser. |
-| Cypress Edge Case Tests | Cypress | `frontend/cypress/e2e/financial-profile.cy.js` | Verifies input validation and special user scenarios. |
-
----
-
-### 🌐 Cypress E2E Tests
-
-The Cypress tests simulate real user behavior inside the browser.
-
-The main E2E test checks the full flow of the application:
-
-```txt
-1. Open the frontend application
-2. Enter financial profile details
-3. Click Calculate Plan
-4. Verify that the spending buckets are displayed
-5. Verify that the investment projection chart appears
-6. Save the financial profile
-7. Verify that the saved profile appears in the Saved Profiles section
-```
-
----
 
 ### ⚠️ Cypress Edge Case Tests
 
-In addition to the main happy-path test, the project also includes edge case tests.
-
-These tests check how the system behaves when the user enters missing or incomplete data.
-
-The edge case tests include:
+The Cypress file also checks edge cases such as:
 
 | Edge Case | Expected Behavior |
 |---|---|
-| Application loads successfully | The main title, form, and buttons are visible. |
 | Missing gross salary | The system displays a validation error. |
-| Missing bank net | The system calculates the plan using estimated bank net from gross salary. |
-| Missing name while saving | The system displays a validation error. |
-| Valid profile submission | The profile is calculated, saved, and displayed correctly. |
-
-These tests improve confidence that the application handles both normal and incorrect user actions correctly.
-
-### ▶️ Running Cypress Tests
-
-To run Cypress tests in headless mode:
-
-```bash
-cd frontend
-npm run cy:run
-```
-
-Expected result:
-
-```txt
-Tests: 5
-Passing: 5
-Failing: 0
-```
-
-To open Cypress in interactive mode:
-
-```bash
-cd frontend
-npm run cy:open
-```
+| Missing bank net | The system uses estimated bank net from gross salary. |
+| Missing name while saving | The system displays `Name is required`. |
+| Valid profile save | The profile is saved and displayed successfully. |
 
 ---
 
-## 🔁 CI/CD Pipeline
+## 🔁 GitHub Actions CI/CD Pipeline
 
-This project includes a GitHub Actions CI pipeline that runs automatically on every push or pull request to the `main` branch.
+GitHub Actions is used to run an automatic CI pipeline.
 
-The pipeline helps ensure that the project remains stable and that new changes do not break the system.
-
-### ✅ What the CI Pipeline Does
-
-| Step | Description |
-|---|---|
-| 📥 Checkout Repository | Downloads the project code from GitHub. |
-| 🟩 Setup Node.js | Installs the required Node.js version. |
-| 📦 Install Backend Dependencies | Installs backend packages using `npm ci`. |
-| 📦 Install Frontend Dependencies | Installs frontend packages using `npm ci`. |
-| 🐳 Docker Build Check | Builds the Docker images for the backend and frontend. |
-| 🐳 Start Docker Services | Starts PostgreSQL, backend, and frontend containers using Docker Compose. |
-| ❤️ Health Check | Waits until the backend `/health` endpoint is available. |
-| 🔺 Prisma Generate | Generates the Prisma Client. |
-| 🗄️ Prisma Migrate | Applies database migrations. |
-| ✅ Backend Tests | Runs backend unit and integration tests. |
-| 🧪 Frontend Tests | Runs frontend component tests using Vitest. |
-| 🌐 Cypress E2E Tests | Runs end-to-end tests using Cypress. |
-| 🧹 Stop Docker Services | Stops all Docker containers after the tests finish. |
-
----
-
-### 📄 CI Workflow File
-
-The GitHub Actions workflow is defined in:
+The workflow file is located at:
 
 ```txt
 .github/workflows/ci.yml
 ```
 
-This file controls the automated CI process.
+The pipeline runs automatically when code is pushed to the `main` branch or when a pull request is opened.
+
+### What the CI Pipeline Does
+
+| Step | Description |
+|---|---|
+| 📥 Checkout repository | Downloads the code into the GitHub runner. |
+| 🟩 Setup Node.js | Installs the required Node.js version. |
+| 📦 Install backend dependencies | Runs backend dependency installation. |
+| 📦 Install frontend dependencies | Runs frontend dependency installation. |
+| 🐳 Docker build check | Verifies that Docker images can be built. |
+| 🐘 Start PostgreSQL | Starts the database service for tests. |
+| 🔺 Prisma generate | Generates Prisma Client. |
+| 🗄️ Prisma migrate | Applies database migrations. |
+| ✅ Backend tests | Runs Jest backend tests. |
+| 🧪 Frontend tests | Runs Vitest frontend tests. |
+| 🌐 Cypress tests | Runs Cypress E2E and edge case tests. |
+| 🧹 Cleanup | Stops containers after the run. |
+
+### Why GitHub Actions Is Useful
+
+GitHub Actions helps the project by:
+
+- Running tests automatically.
+- Finding problems before merging code.
+- Making sure backend, frontend, and Cypress tests pass.
+- Checking that Docker builds are valid.
+- Giving a clear green or red status for every push.
+
+A green workflow means the project passed the automated checks.
 
 ---
 
-### 🧪 Tests Covered by CI
+## 🧭 How to Present the Project
 
-| Test Type | Tool | Purpose |
-|---|---|---|
-| Backend Unit Tests | Jest | Tests the financial calculation logic. |
-| Backend Integration Tests | Jest + Supertest | Tests backend API routes. |
-| Frontend Component Test | Vitest + React Testing Library | Tests the React UI behavior. |
-| E2E and Edge Case Tests | Cypress | Simulates real user flows and validates edge cases in the browser. |
+This section can be used during the presentation.
 
----
+### 1. Show GitHub Repository
 
-### 🚦 CI Status Badge
-
-The README includes a CI status badge at the top of the page.
-
-The badge shows whether the latest CI run passed or failed.
-
-A green badge means:
+Show the main repository page and explain:
 
 ```txt
-The project builds successfully and all automated tests passed.
+This is the project repository. It includes the frontend, backend, database setup,
+Docker Compose files, tests, documentation, and GitHub Actions workflow.
+```
+
+### 2. Show Docker Hub
+
+Show the Docker Hub repositories:
+
+```txt
+yeuda4222/intelligent-investor-frontend
+yeuda4222/intelligent-investor-backend
+yeuda4222/intelligent-investor-db
+```
+
+Explain:
+
+```txt
+These are the ready Docker images for the frontend, backend, and database.
+They allow another team member to run the project without building the images locally.
+```
+
+### 3. Run the Project From Docker Hub
+
+```bash
+cd ~/Desktop/intelligent-investor-platform
+docker compose -f docker-compose.hub.yml down
+docker compose -f docker-compose.hub.yml pull
+docker compose -f docker-compose.hub.yml up -d
+docker ps
+```
+
+Explain:
+
+```txt
+Docker Compose pulls the images from Docker Hub and starts the full system:
+frontend, backend, and PostgreSQL database.
+```
+
+### 4. Show Docker Desktop
+
+Open Docker Desktop and show:
+
+- Containers
+- Images
+- Running frontend container
+- Running backend container
+- Running database container
+
+Explain:
+
+```txt
+Docker Desktop gives a visual view of the containers and images.
+The green indicators show that the services are running.
+```
+
+### 5. Check Backend
+
+```bash
+curl http://localhost:5052/health
+```
+
+Explain:
+
+```txt
+This endpoint proves that the backend is running and connected to the database.
+```
+
+### 6. Check API
+
+```bash
+curl http://localhost:5052/api/profiles
+```
+
+Explain:
+
+```txt
+This endpoint checks a real API route that loads profiles from the database.
+```
+
+### 7. Open Frontend
+
+Open:
+
+```txt
+http://localhost:8090
+```
+
+Show this flow:
+
+```txt
+1. Enter name
+2. Enter gross salary
+3. Enter bank net
+4. Click Calculate Plan
+5. Show spending buckets
+6. Show 15-year investment projection
+7. Save profile
+8. Show saved profile
+```
+
+### 8. Run Cypress Tests
+
+```bash
+cd frontend
+npx cypress open --config baseUrl=http://localhost:8090
+```
+
+Explain:
+
+```txt
+Cypress simulates a real user in the browser.
+It checks the full flow and also edge cases like missing fields.
+```
+
+### 9. Show GitHub Actions
+
+Open:
+
+```txt
+GitHub Repository → Actions
+```
+
+Explain:
+
+```txt
+GitHub Actions runs automated tests on every push.
+It helps verify that the backend, frontend, Cypress tests, and Docker checks pass.
 ```
 
 ---
@@ -1194,10 +1036,11 @@ Prisma Studio usually opens at:
 http://localhost:5555
 ```
 
-There you can view:
+When using the Docker Hub database, make sure the backend `.env` points to:
 
-- `FinancialProfile`
-- `SpendingPlan`
+```env
+DATABASE_URL="postgresql://postgres:postgres@localhost:5435/intelligent_investor_prod_db?schema=public"
+```
 
 ---
 
@@ -1210,10 +1053,10 @@ cd backend
 npm install
 npm run dev
 npm test
+npx prisma generate
+npx prisma migrate dev
 npx prisma studio
 ```
-
----
 
 ### 🎨 Frontend
 
@@ -1223,56 +1066,48 @@ npm install
 npm run dev
 npm run build
 npm test
-npm run cy:open
-npm run cy:run
+npx cypress open --config baseUrl=http://localhost:8090
+npx cypress run --config baseUrl=http://localhost:8090
 ```
 
----
-
-### 🐳 Docker Local
+### 🐳 Docker Hub Run
 
 ```bash
-docker compose up --build -d
-docker compose down
+cd ~/Desktop/intelligent-investor-platform
+docker compose -f docker-compose.hub.yml down
+docker compose -f docker-compose.hub.yml pull
+docker compose -f docker-compose.hub.yml up -d
 docker ps
+curl http://localhost:5052/health
+curl http://localhost:5052/api/profiles
+```
+
+### 🧪 Backend Tests With Docker Hub Database
+
+```bash
+cd backend
+DATABASE_URL="postgresql://postgres:postgres@localhost:5435/intelligent_investor_prod_db?schema=public" npm test -- --runInBand
+```
+
+### 🐳 Docker General
+
+```bash
+docker ps
+docker images
+docker compose down
 docker compose logs backend
 docker compose logs frontend
 docker compose logs postgres
 ```
-
----
-
-### 🚦 Docker Staging
-
-```bash
-docker compose -f docker-compose.staging.yml up --build -d
-docker compose -f docker-compose.staging.yml down
-docker compose -f docker-compose.staging.yml logs backend
-docker compose -f docker-compose.staging.yml logs frontend
-docker compose -f docker-compose.staging.yml logs postgres
-```
-
----
-
-### 🚀 Docker Production
-
-```bash
-docker compose -f docker-compose.prod.yml up --build -d
-docker compose -f docker-compose.prod.yml down
-docker compose -f docker-compose.prod.yml logs backend
-docker compose -f docker-compose.prod.yml logs frontend
-docker compose -f docker-compose.prod.yml logs postgres
-```
-
----
 
 ### 🌿 Git
 
 ```bash
 git status
 git add .
-git commit -m "your commit message"
-git push
+git commit -m "Update project documentation"
+git pull --rebase origin main
+git push origin main
 ```
 
 ---
@@ -1289,26 +1124,25 @@ Implemented:
 - ✅ Full-stack Docker setup
 - ✅ Local Docker environment
 - ✅ Staging Docker environment
-- ✅ Production Docker environment
+- ✅ Production-like Docker environment
+- ✅ Docker Hub based environment
+- ✅ Docker Hub frontend image
+- ✅ Docker Hub backend image
+- ✅ Docker Hub database image
+- ✅ Custom database Docker image with initialization script
 - ✅ Separate local database
 - ✅ Separate staging database
-- ✅ Separate production database
+- ✅ Separate production-like database
 - ✅ Separate frontend and backend ports for each environment
 - ✅ Environment badge in frontend
-- ✅ Environment badge supports Local, Staging, and Production
-- ✅ Automatic Prisma migrations on container startup
-- ✅ Docker build check in CI
 - ✅ Backend unit tests
 - ✅ Backend integration tests
 - ✅ Frontend component test
 - ✅ Cypress E2E test
 - ✅ Cypress edge case tests
-- ✅ Test coverage documentation
 - ✅ GitHub Actions CI Pipeline
-- ✅ Automated CI on every push to `main`
+- ✅ Docker build check in CI
 - ✅ CI status badge in README
-- ✅ Project screenshots in README
-- ✅ Project summary documentation
 - ✅ Profile saving
 - ✅ Profile loading
 - ✅ Investment projection chart
@@ -1320,12 +1154,7 @@ Optional next steps:
 - ⏳ Add HTTPS and custom domain
 - ⏳ Add monitoring and logs dashboard
 - ⏳ Add user authentication
+- ⏳ Add Docker image version tags instead of using only `latest`
 
 ---
-
-## 👤 Authors
-
-**Yehuda Baza**, **Vladislav Rabinovich**, **Izhak Wasse**, **Aviv Nahum** 
-
-
 
